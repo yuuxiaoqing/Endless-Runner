@@ -8,7 +8,15 @@ class Menu extends Phaser.Scene{
         
     // }
     create(){
-        this.add.text(game.config.width/2, game.config.height/2, "this dumpling empty, YEET").setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, "this dumpling empty, YEET\nby nanners on cereal\npress S to start").setOrigin(0.5);
+        keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    }
+
+    update(){
+        if(Phaser.Input.Keyboard.JustDown(keyS)){
+            this.scene.start("playScene");
+        }
+
     }
 
 }
@@ -21,10 +29,18 @@ class Menu extends Phaser.Scene{
 let config = {
 
     type: Phaser.CANVAS,
-    width:640,
+    width:960,
     height:640,
-    scene: [Menu]
+    scale: {
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    scene: [Menu, Play, Endgames]
 
 };
 
 let game = new Phaser.Game(config);
+
+let width = game.config.width;
+let height = game.config.height;
+//declare start game key, change to buttons on the screen later
+let keyS;
