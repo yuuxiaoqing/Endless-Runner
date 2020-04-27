@@ -21,20 +21,17 @@ class Menu extends Phaser.Scene{
 
 }
 
-
-
-
-
 //game settings
 let config = {
 
     type: Phaser.CANVAS,
     width:960,
     height:640,
+    physics: Phaser.Physics.ARCADE,
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [Menu, Play, Endgames]
+    scene: [Menu, Play, Endgame]
 
 };
 
@@ -44,3 +41,6 @@ let width = game.config.width;
 let height = game.config.height;
 //declare start game key, change to buttons on the screen later
 let keyS;
+
+//Player Movement / Keybinds
+let playerLeft, playerRight, playerJump, playerAttack;
