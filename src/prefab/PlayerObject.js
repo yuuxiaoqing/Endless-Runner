@@ -1,4 +1,4 @@
-class PlayerObject extends Phaser.GameObjects.Sprite{
+class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
     //Constructor
     constructor(scene, x, y, texture, frame){
@@ -13,7 +13,7 @@ class PlayerObject extends Phaser.GameObjects.Sprite{
         this.movingRight;
         this.jumping;
         this.attacking;
-        
+
     }
 
     update(){
@@ -46,6 +46,7 @@ class PlayerObject extends Phaser.GameObjects.Sprite{
         //Checks Jumping
         if(Phaser.Input.Keyboard.JustDown(playerJump)){
             this.jumping = true;
+            console.log("Space is being Pressed");
         } else {
             this.jumping = false;
         }
@@ -66,7 +67,17 @@ class PlayerObject extends Phaser.GameObjects.Sprite{
             this.x -= this.speed;
         if(this.movingRight)
             this.x += this.speed;
-        
+ 
+        //Jumping stuff
+        let canJump = true;
+        if(canJump && this.jumping)
+            this.playerJumps();
+
+    }
+
+    //Specific Function for the player to jump, checks if it's 
+    playerJumps(){
+        this.setVelocityY(-500);
     }
 
 

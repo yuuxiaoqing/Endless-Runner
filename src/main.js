@@ -27,10 +27,19 @@ let config = {
     type: Phaser.CANVAS,
     width:960,
     height:640,
-    physics: Phaser.Physics.ARCADE,
     scale: {
-        autoCenter: Phaser.Scale.CENTER_BOTH
+    autoCenter: Phaser.Scale.CENTER_BOTH
     },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true,
+            gravity: {
+                x: 0,
+                y: 1000
+            }
+        }
+    },    
     scene: [Menu, Play, Endgame]
 
 };
@@ -41,6 +50,9 @@ let width = game.config.width;
 let height = game.config.height;
 //declare start game key, change to buttons on the screen later
 let keyS;
+
+//Player object
+let mainPlayer;
 
 //Player Movement / Keybinds
 let playerLeft, playerRight, playerJump, playerAttack;

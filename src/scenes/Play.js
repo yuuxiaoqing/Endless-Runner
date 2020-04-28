@@ -7,7 +7,7 @@ class Play extends Phaser.Scene{
     //Preload
     preload(){
         this.load.image('playerSprite', './assets/playerAssets/bacon.png');
-    
+        this.load.image('joepera', './assets/generalAssets/joe.png');
     }
 
     create(){
@@ -18,9 +18,34 @@ class Play extends Phaser.Scene{
         playerAttack = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
         //Creates the player
-        this.mainPlayer = new PlayerObject(this, game.config.width/2, game.config.height/2, 'bacon').setOrigin(0.5);
+        mainPlayer = new PlayerObject(this, game.config.width/2, game.config.height/2, 'playerSprite').setOrigin(0.5);
+        mainPlayer.setDepth(1);
+
+        //Adds physics to the player
+        this.physics.add.existing(mainPlayer);
+        mainPlayer.body.collideWorldBounds = true;
+
+        //Adds a ground (temp)
+        this.temp = this.physics.add.sprite(32, game.config.width / 2 + 300, 'joepera').setScale(0.5,0.5).setOrigin(0.5);
+        this.temp.body.allowGravity = false;
+        this.temp.body.immovable = true;
+
+        //Adds obstacle physics groups
+        this.obstacleGroup = this.add.group({
+            runChildUpdate: true
+        });
+
+        this.obstacleGroup.add(this.temp);
 
 
+
+
+
+
+
+
+        //Debug stuff
+        //tester = this.physics.arcade.add.sprite(32, game.config.height / 2, 'playerSprite').setOrigin(0.5);
         this.add.text(width/2, (height/2)-230, "play scene\npress S to go to endscene").setOrigin(0.5);
 
         //player (temp)
@@ -28,17 +53,16 @@ class Play extends Phaser.Scene{
         this.add.ellipse(width/2, height/2-20, 20, 20, 0XFACADE, 0.5).setOrigin(0.5);
         // a bar for the player to simulate running on the circle (side view)
         //(x,y,width, height, fillcolor, fillalpha)
-        this.add.rectangle(width/2, (height/2),300, 10, 0XFFFFFF, 0.5).setOrigin(0.5);
         
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     }
 
     update(){
         //Player update
-        this.mainPlayer.update();
+        mainPlayer.update();
 
-
-
+        //Collisions with obstacles and player
+        this.physics.world.collide(mainPlayer, this.obstacleGroup);
 
         //endgame condition: 1) when the player touches a chopstick 
         //          advance  2) when the player touches a chopstick 3 times
