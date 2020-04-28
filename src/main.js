@@ -8,15 +8,29 @@ class Menu extends Phaser.Scene{
         
     // }
     create(){
-        this.add.text(game.config.width/2, game.config.height/2, "this dumpling empty, YEET\nby nanners on cereal\npress S to start").setOrigin(0.5);
+        this.color = 0XFFFFFF
+        this.add.text(game.config.width/2, game.config.height/2, "this dumpling empty, YEET\nby nanners on cereal").setOrigin(0.5);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
+        //basic start button, wanna change it to image
+        this.start = this.add.text(width/2-300, height/2-100, ">start game<", color).setOrigin(0,0);
+        this.start.setInteractive().on('pointerdown', ()=>{
+        
+            this.scene.start("playScene");
+
+
+        });
+
+        //basic setting button
+        this.setting = this.add.text(width/2-300, height/2, ">setting<", color).setOrigin(0,0);
+        this.setting.setInteractive().on('pointerdown', ()=>{
+            this.scene.start("settingScene");
+        });
+
     }
 
     update(){
-        if(Phaser.Input.Keyboard.JustDown(keyS)){
-            this.scene.start("playScene");
-        }
-
+      
     }
 
 }
@@ -34,7 +48,7 @@ let config = {
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [Menu, Play, Endgames]
+    scene: [Menu, Play, Endgame,Setting]
 
 };
 
@@ -44,3 +58,5 @@ let width = game.config.width;
 let height = game.config.height;
 //declare start game key, change to buttons on the screen later
 let keyS;
+
+let color = 0XFFFFFF;
