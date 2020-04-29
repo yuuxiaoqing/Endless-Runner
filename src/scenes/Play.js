@@ -10,6 +10,7 @@ class Play extends Phaser.Scene{
         this.load.image('joepera', './assets/generalAssets/joe.png');
     }
 
+    //Create Function
     create(){
         //Assigns the Keybinds
         playerLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -24,25 +25,23 @@ class Play extends Phaser.Scene{
         //Adds physics to the player
         this.physics.add.existing(mainPlayer);
         mainPlayer.body.collideWorldBounds = true;
+        //mainPlayer.body.setImmovable(true);
+
+
 
         //Adds a ground (temp)
-        this.temp = this.physics.add.sprite(32, game.config.width / 2 + 300, 'joepera').setScale(0.5,0.5).setOrigin(0.5);
-        this.temp.body.allowGravity = false;
-        this.temp.body.immovable = true;
+        this.ground = this.physics.add.sprite(320, game.config.width / 2 + 80, 'joepera').setScale(0.2).setOrigin(0.5);
+        this.ground.body.allowGravity = false;
+        this.ground.body.setImmovable(true);
 
         //Adds obstacle physics groups
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
         });
+        this.obstacleGroup.add(this.ground);
 
-        this.obstacleGroup.add(this.temp);
-
-
-
-
-
-
-
+        //Sets a collider between the players and obstacles
+        this.physics.add.collider(mainPlayer, this.obstacleGroup);
 
         //Debug stuff
         //tester = this.physics.arcade.add.sprite(32, game.config.height / 2, 'playerSprite').setOrigin(0.5);
@@ -61,8 +60,13 @@ class Play extends Phaser.Scene{
         //Player update
         mainPlayer.update();
 
-        //Collisions with obstacles and player
-        this.physics.world.collide(mainPlayer, this.obstacleGroup);
+        //test
+        this.physics.world.collide(mainPlayer, this.obstacleGroup, checkMe, null, this);
+
+
+
+
+
 
         //endgame condition: 1) when the player touches a chopstick 
         //          advance  2) when the player touches a chopstick 3 times
@@ -78,3 +82,7 @@ class Play extends Phaser.Scene{
     }
 }
 
+
+function checkMe(){
+    console.log("AAAAAAAAAAAA WHAT THE FUCK")
+}

@@ -8,11 +8,15 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this);
 
         //Creates Player Movement Variables
-        this.speed = 5;
+        this.speed = 300;
         this.movingLeft;
         this.movingRight;
+        //Creates the jump variables
         this.jumping;
+        this.jumpCount = 2;        
         this.attacking;
+
+
 
     }
 
@@ -64,20 +68,35 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
     playerMovement(){
         //Left and Right Movement
         if(this.movingLeft)
-            this.x -= this.speed;
+            this.setVelocityX(-1 * this.speed);
         if(this.movingRight)
-            this.x += this.speed;
- 
-        //Jumping stuff
-        let canJump = true;
-        if(canJump && this.jumping)
-            this.playerJumps();
+            this.setVelocityX(this.speed);
 
+        if(!this.movingLeft && !this.movingRight)
+            this.setVelocityX(0);
+            
+
+        //The Actual Jump
+        if(this.jumpCount > 0 && this.jumping){
+            this.jumpCount -= 1;
+            this.setVelocityY(-500);
+        }
+
+        //Jump collision stuff
+        //Resets the jump
+        if(this.body.onFloor() && this.jumpCount == 0 && this.body.velocity.y == 0){
+            this.jumpCount = 2;
+        }
+
+        //Handles jumping on objects (all objects)
+        if(this.jumpCount == 0 && this.body.velocity.y == 0) 
+            this.jumpCount = 2;
+        
     }
 
-    //Specific Function for the player to jump, checks if it's 
-    playerJumps(){
-        this.setVelocityY(-500);
+    //Resets the jump for use outside of this player object.
+    resetJump(){
+        canJump = true;
     }
 
 
