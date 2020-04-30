@@ -8,6 +8,7 @@ class Play extends Phaser.Scene{
     preload(){
         this.load.image('playerSprite', './assets/playerAssets/bacon.png');
         this.load.image('joepera', './assets/generalAssets/joe.png');
+        this.load.image('joeball', './assets/obstacleAssets/joeball.png')
     }
 
     //Create Function
@@ -43,7 +44,18 @@ class Play extends Phaser.Scene{
         //Sets a collider between the players and obstacles
         this.physics.add.collider(mainPlayer, this.obstacleGroup);
 
+
         //Debug stuff
+        this.obstacle = new Obstacle(this, game.config.width / 2, game.config.height / 2 - 200, 'joeball', 0, 30, 30)
+
+        this.physics.add.existing(this.obstacle);
+        this.obstacle.setCircle(100);
+        this.obstacle.body.allowGravity = false;
+        this.obstacle.body.setImmovable(true);
+        this.obstacleGroup.add(this.obstacle);
+
+
+
         //tester = this.physics.arcade.add.sprite(32, game.config.height / 2, 'playerSprite').setOrigin(0.5);
         this.add.text(width/2, (height/2)-230, "play scene\npress S to go to endscene").setOrigin(0.5);
 
@@ -59,10 +71,12 @@ class Play extends Phaser.Scene{
     update(){
         //Player update
         mainPlayer.update();
+        this.obstacle.update();
 
         //test
-        this.physics.world.collide(mainPlayer, this.obstacleGroup, checkMe, null, this);
+        this.physics.world.collide(mainPlayer, this.obstacleGroup);
 
+        this.physics.velocityFromRotation(this.obstacle.angle, 300, this.obstacle.body.velocity);
 
 
 
@@ -80,9 +94,15 @@ class Play extends Phaser.Scene{
 
 
     }
+
+    //Create Obstacle
+    createObstacle(speed){
+
+    }
+
+
+
+
 }
 
 
-function checkMe(){
-    console.log("AAAAAAAAAAAA WHAT THE FUCK")
-}
