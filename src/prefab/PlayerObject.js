@@ -11,12 +11,11 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
         this.speed = 300;
         this.movingLeft;
         this.movingRight;
+
         //Creates the jump variables
         this.jumping;
         this.jumpCount = 2;        
         this.attacking;
-
-
 
     }
 
@@ -98,12 +97,6 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
     resetJump(){
         canJump = true;
     }
-
-
-
-
-
-
 
 
 
