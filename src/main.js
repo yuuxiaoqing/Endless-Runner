@@ -13,7 +13,7 @@ class Menu extends Phaser.Scene{
             fontFamily: 'Yeon Sung',
             fill:'#000',
             fontSize: '36px',
-        }
+        } 
         //background
         this.add.rectangle(0,0,width,height, 0xFFFFFF).setOrigin(0,0);
         //menu background
