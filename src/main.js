@@ -26,7 +26,7 @@ class Menu extends Phaser.Scene{
         //its a square physic body btw
         let table = this.physics.add.sprite(width/2+250, height/2, 'table');
         table.body.setAngularVelocity(-20);
-
+        table.body.allowGravity = false;
        
 
         //start button
