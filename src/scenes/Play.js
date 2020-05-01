@@ -9,7 +9,7 @@ class Play extends Phaser.Scene{
     // }
 
     create(){
-        this.add.text(width/2, (height/2)-230, "play scene\npress S to go to endscene").setOrigin(0.5);
+        this.add.text(width/2, (height/2)-230, "play scene\npress S to go to endscene",{fontFamily: 'Yeon Sung'}).setOrigin(0.5);
 
         //player (temp)
         //gravity and collision
