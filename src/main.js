@@ -26,11 +26,12 @@ class Menu extends Phaser.Scene{
         //its a square physic body btw
         let table = this.physics.add.sprite(width/2+250, height/2, 'table');
         table.body.setAngularVelocity(-20);
+
        
 
         //start button
         this.start = this.add.text(width/2-300, height/2-100, "start game", {fill:'#000', fontSize: '24px',fontFamily: 'Yeon Sung'}).setOrigin(0,0)
-        //button method from https://snowbillr.github.io/blog/2018-07-03-buttons-in-phaser-3/
+        //basic text button method from https://snowbillr.github.io/blog/2018-07-03-buttons-in-phaser-3/
         .setInteractive()
         .on('pointerdown', ()=>{this.start.setStyle({fill:'#fa0', fontSize: '32px',fontFamily: 'Yeon Sung'}); this.scene.start("playScene");})
         .on('pointerover', ()=>{this.start.setStyle({fill:'#fa0', fontSize: '32px',fontFamily: 'Yeon Sung'}); })
@@ -72,7 +73,7 @@ let config = {
             }
         }
     },    
-    scene: [Menu, Play, Endgame,Setting]
+    scene: [Menu, Play, Endgame,Tutorial]
 
 };
 
