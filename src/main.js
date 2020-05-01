@@ -52,10 +52,6 @@ class Menu extends Phaser.Scene{
 
 }
 
-
-
-
-
 //game settings
 let config = {
 
@@ -63,15 +59,20 @@ let config = {
     width:960,
     height:640,
     scale: {
-        autoCenter: Phaser.Scale.CENTER_BOTH
+    autoCenter: Phaser.Scale.CENTER_BOTH
     },
+
     physics: {
         default: 'arcade',
-        // arcade: {
-        //     debug: true
-        // }
-    },
-    scene: [Menu,Tutorial,Play,Endgame]
+        arcade: {
+            debug: true,
+            gravity: {
+                x: 0,
+                y: 1000
+            }
+        }
+    },    
+    scene: [Menu, Play, Endgame,Setting]
 
 };
 
@@ -89,3 +90,10 @@ let WebFontConfig = {
         families: ['Yeon Sung']
     }
 }
+//Player object
+let mainPlayer;
+
+//Player Movement / Keybinds
+let playerLeft, playerRight, playerJump, playerAttack;
+
+let color = 0XFFFFFF;
