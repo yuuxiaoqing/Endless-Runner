@@ -9,7 +9,10 @@ class Play extends Phaser.Scene{
         this.load.image('playerSprite', './assets/playerAssets/bacon.png');
         this.load.image('joepera', './assets/generalAssets/joe.png');
         this.load.image('weewoo', './assets/generalAssets/table.png');
-        this.load.image('joeball', './assets/obstacleAssets/joeball.png')
+        this.load.image('joeball', './assets/obstacleAssets/joeball.png');
+        
+        this.load.image('temp', './assets/chop.png');
+
     }
 
     //Create Function
@@ -47,12 +50,17 @@ class Play extends Phaser.Scene{
         this.weewoo = this.physics.add.sprite(width / 2, height / 2, 'weewoo').setOrigin(0.5);
         this.weewoo.body.angularVelocity = 30;
         this.weewoo.body.allowGravity = false;
-        
+        //960 x 640
+        //create chopstick
+        this.chopstick = new Chopstick(this, 0, 0, 'temp').setOrigin(0.5);
+        this.physics.add.existing(this.chopstick);
+        this.physics.accelerateToObject(this.chopstick, mainPlayer, 70, 300,300);
 
+        var hit = this.physics.add.overlap(this.chopstick, mainPlayer, ()=>{
 
-
-
-
+            console.log("hit");
+            this.chopstick.alpha = 0;
+        })
 
         //Debug stuff
         this.obstacle = new Obstacle(this, width / 2, height / 2 - 220, 'joeball', 0)
@@ -67,12 +75,6 @@ class Play extends Phaser.Scene{
 
         //tester = this.physics.arcade.add.sprite(32, game.config.height / 2, 'playerSprite').setOrigin(0.5);
         this.add.text(width/2, (height/2)-230, "play scene\npress S to go to endscene").setOrigin(0.5);
-
-        //player (temp)
-        //gravity and collision
-        this.add.ellipse(width/2, height/2-20, 20, 20, 0XFACADE, 0.5).setOrigin(0.5);
-        // a bar for the player to simulate running on the circle (side view)
-        //(x,y,width, height, fillcolor, fillalpha)
         
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     }

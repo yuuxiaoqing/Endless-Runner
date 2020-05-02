@@ -28,6 +28,7 @@ class Menu extends Phaser.Scene{
         table.body.setAngularVelocity(-20);
         table.body.allowGravity = false;
 
+
         //start button
         this.start = this.add.text(width/2-350, height/2-100, "start game", {fill:'#000', fontSize: '24px',fontFamily: 'Yeon Sung'}).setOrigin(0,0)
         //basic text button method from https://snowbillr.github.io/blog/2018-07-03-buttons-in-phaser-3/
