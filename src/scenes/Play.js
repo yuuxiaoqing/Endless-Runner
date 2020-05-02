@@ -52,15 +52,16 @@ class Play extends Phaser.Scene{
         this.weewoo.body.allowGravity = false;
         //960 x 640
         //create chopstick
-        this.chopstick = new Chopstick(this, 0, 0, 'temp').setOrigin(0.5);
+        this.chopstick = new Chopstick(this, 0, 500, 'temp').setOrigin(0.5);
         this.physics.add.existing(this.chopstick);
-        this.physics.accelerateToObject(this.chopstick, mainPlayer, 70, 300,300);
-
+        //heads toward the player
+        var rotation = this.physics.accelerateToObject(this.chopstick, mainPlayer, 70, 80,80);
+        this.physics.velocityFromAngle(rotation,200,this.chopstick.body.velocity);
         var hit = this.physics.add.overlap(this.chopstick, mainPlayer, ()=>{
-
             console.log("hit");
             this.chopstick.alpha = 0;
-        })
+            this.physics.world.removeCollider(hit);
+        }, null, this);
 
         //Debug stuff
         this.obstacle = new Obstacle(this, width / 2, height / 2 - 220, 'joeball', 0)

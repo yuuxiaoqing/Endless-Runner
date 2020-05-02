@@ -10,6 +10,8 @@ class Chopstick extends Phaser.Physics.Arcade.Sprite{
     }
     create(){
        // this.physics.add.image(90,60,texture);
+
+       
     }
 
     update(){
