@@ -7,7 +7,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this);
 
         //Adds the speed of the obstacle as it spins around and stuff
-        this.angle = 0;
+        this.angle = 0
         this.angleRadians = 0;
     }
 
@@ -15,7 +15,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
     //Movement for the obstacle
     update(){
         //Adjusts the angle
-        this.angle += .0095;
+        this.angle += .02;
         this.angleRadians = this.angle * (Math.PI / 180);
     }
     
