@@ -27,7 +27,10 @@ class Play extends Phaser.Scene{
         //Creates the player
         mainPlayer = new PlayerObject(this, game.config.width/2, game.config.height/2, 'playerSprite').setOrigin(0.5);
         mainPlayer.setDepth(1);
-       
+        this.playerShadow = this.physics.add.sprite(mainPlayer.x, mainPlayer.y + 10, 'playerSprite');
+        this.playerShadow.body.allowGravity = false;
+        this.playerShadow.alpha = 0;
+
         //Adds physics to the player
         this.physics.add.existing(mainPlayer);
         mainPlayer.body.collideWorldBounds = true;
@@ -38,7 +41,7 @@ class Play extends Phaser.Scene{
         });
 
         //Sets a collider between the players and obstacles
-        //this.physics.add.collider(mainPlayer, this.obstacleGroup, mainPlayer.resetJump());
+        this.physics.add.collider(mainPlayer, this.obstacleGroup, mainPlayer.resetJump());
 
 
         //add chopsticks
@@ -91,19 +94,23 @@ class Play extends Phaser.Scene{
     update(){
         //Player update
         mainPlayer.update();
+        this.playerShadow.x = mainPlayer.x;
+        this.playerShadow.y = mainPlayer.y + .01;
 
-        //Physics
-        if(this.physics.world.collide(mainPlayer, this.obstacleGroup))
-            mainPlayer.resetJump();
-        
-           
-        if(this.physics.world.overlap(mainPlayer, this.obstacleGroup) && mainPlayer.y > height / 2)
+        //Physics   
+        if(this.physics.world.overlap(mainPlayer, this.obstacleGroup) && mainPlayer.y > height / 2){
             mainPlayer.pushUp();
+            mainPlayer.resetJump();
+        }
+
+        if(this.physics.world.overlap(this.playerShadow, this.obstacleGroup))
+            mainPlayer.resetJump();
         
         //end the game if the player collide with the chopstick
         this.physics.world.collide(mainPlayer, this.chopstickGroup,()=>{
             this.scene.start('endScene');
         });
+
         //Plate Movement
         this.physics.velocityFromRotation(this.plate1.angle, 390, this.plate1.body.velocity);
         this.physics.velocityFromRotation(this.plate2.angle, 390, this.plate2.body.velocity);
@@ -124,7 +131,7 @@ class Play extends Phaser.Scene{
 
         //temp scene change
         if(Phaser.Input.Keyboard.JustDown(keyS)){
-            this.scene.start('endScene');
+                this.scene.start('endScene');
         }
 
 
@@ -153,6 +160,11 @@ class Play extends Phaser.Scene{
         this.plateCenter3.body.allowGravity = false;
         this.plateCenter3.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter3);
+
+        //Makes above transparent
+        this.plateCenter.alpha = 0;
+        this.plateCenter2.alpha = 0;
+        this.plateCenter3.alpha = 0;
 
         //Adds plate 1
         this.plate1 = new Obstacle(this, width / 2, 0 - 330, 'joeball');
@@ -213,6 +225,8 @@ class Play extends Phaser.Scene{
 
     }
 
+
+        
 
     //Adds the chopsticks
     addChopstick(){

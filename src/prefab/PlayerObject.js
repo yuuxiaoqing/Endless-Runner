@@ -14,7 +14,7 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
         //Creates the jump variables
         this.jumping;
-        this.jumpCount = 2;        
+        this.jumpCount = 1;        
         this.attacking;
 
     }
@@ -80,8 +80,8 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
         //The Actual Jump
         if(this.jumpCount > 0 && this.jumping){
-            this.jumpCount -= 1;
             this.setVelocityY(-500);
+            this.jumpCount -= 1;
         }
 
         //Jump collision stuff
@@ -98,7 +98,7 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
     //Resets the jump for use outside of this player object.
     resetJump(){
-        this.jumpCount = 2;
+        this.jumpCount = 1;
     }
 
     //If the thing gets stuck push the player back up
