@@ -9,15 +9,23 @@ class Chopstick extends Phaser.Physics.Arcade.Sprite{
 
     }
     create(){
-       // this.physics.add.image(90,60,texture);
-
+     
        
     }
 
     update(){
 
-
-        //this.physics.accelerateTo(this, player.x, player.y, 70, 300,300);
-
+        if(this.x <= 0){
+            this.texture.setFlipX(false);
+        }
+        if(this.x >=960){
+            this.texture.setFlipX(true);
+        }
+        if(this.y <=0){
+            this.texture.setFlipY(false);
+        }
+        if(this.y >=640){
+            this.texture.setFlipY(true);     
+        }
     }
 }
