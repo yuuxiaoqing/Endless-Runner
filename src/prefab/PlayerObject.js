@@ -24,6 +24,9 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
         this.playerInputs();
         this.playerMovement();
 
+        if(this.body.velocity.y == 0)
+            console.log("Velocity y = 0");
+
     }
 
     //Player Inputs
@@ -84,12 +87,12 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
         //Jump collision stuff
         //Resets the jump
         if(this.body.onFloor() && this.jumpCount == 0 && this.body.velocity.y == 0){
-            this.jumpCount = 2;
+            this.resetJump();
         }
 
         //Handles jumping on objects (all objects)
-        if(this.jumpCount == 0 && this.body.velocity.y == 0) 
-            this.jumpCount = 2;
+        if(this.jumpCount == 0 && this.body.velocity.y == 0  && !this.body.onCeiling()) 
+            this.resetJump();
         
     }
 
