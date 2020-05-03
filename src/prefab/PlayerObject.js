@@ -95,7 +95,12 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
     //Resets the jump for use outside of this player object.
     resetJump(){
-        canJump = true;
+        this.jumpCount = 2;
+    }
+
+    //If the thing gets stuck push the player back up
+    pushUp(){
+        this.setVelocityY(-500);
     }
 
 

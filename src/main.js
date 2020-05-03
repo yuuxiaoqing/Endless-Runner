@@ -6,7 +6,7 @@ class Menu extends Phaser.Scene{
     }
     preload(){
         //change it with our actual table design
-        this.load.image('table', './assets/temp.png');
+        this.load.image('table', './assets/generalAssets/table.png');
     }
     create(){
         let textConfig = {
