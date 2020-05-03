@@ -10,7 +10,6 @@ class Play extends Phaser.Scene{
         this.load.image('joepera', './assets/generalAssets/joe.png');
         this.load.image('weewoo', './assets/generalAssets/table.png');
         this.load.image('joeball', './assets/obstacleAssets/joeball.png');
-        
         this.load.image('temp', './assets/chop.png');
 
     }
@@ -26,6 +25,7 @@ class Play extends Phaser.Scene{
         //Creates the player
         mainPlayer = new PlayerObject(this, game.config.width/2, game.config.height/2, 'playerSprite').setOrigin(0.5);
         mainPlayer.setDepth(1);
+        mainPlayer.destroyed = false;
 
         //Adds physics to the player
         this.physics.add.existing(mainPlayer);
@@ -50,68 +50,6 @@ class Play extends Phaser.Scene{
         this.weewoo = this.physics.add.sprite(width / 2, height / 2, 'weewoo').setOrigin(0.5);
         this.weewoo.body.angularVelocity = 30;
         this.weewoo.body.allowGravity = false;
-        //960 x 640
-
-        //create chopstick
-        this.chopstick = new Chopstick(this, 0, 500, 'temp').setOrigin(0.5);
-        this.chopstick.setDepth(1);
-        this.physics.add.existing(this.chopstick);
-        this.chopstick.body.allowGravity = false;
-        //heads toward the player
-        var rotation = this.physics.accelerateToObject(this.chopstick, mainPlayer, 70, 300,300);
-        this.physics.velocityFromAngle(rotation,200,this.chopstick.body.velocity);
-
-
-        //game over condition
-        var hit = this.physics.add.overlap(this.chopstick, mainPlayer, ()=>{
-            console.log("hit");
-            this.chopstick.alpha = 0;
-            this.physics.world.removeCollider(hit);
-        }, null, this);
-
-
-
-
-
-        //create chopstick2
-        this.chopstick2 = new Chopstick(this, 0, 0, 'temp').setOrigin(0.5);
-        this.chopstick2.setDepth(1);
-        this.physics.add.existing(this.chopstick2);
-        this.chopstick2.body.allowGravity = false;
-        //heads toward the player
-        var rotation = this.physics.accelerateToObject(this.chopstick2, mainPlayer, 70, 300,300);
-        this.physics.velocityFromAngle(rotation,200,this.chopstick2.body.velocity);
-  
-  
-        //game over condition
-        var hit2 = this.physics.add.overlap(this.chopstick2, mainPlayer, ()=>{
-            console.log("hit");
-            this.chopstick2.alpha = 0;
-            this.physics.world.removeCollider(hit2);
-        }, null, this);
-  
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //Debug stuff
         this.obstacle = new Obstacle(this, width / 2, height / 2 - 220, 'joeball', 0)
@@ -122,13 +60,24 @@ class Play extends Phaser.Scene{
         this.obstacle.body.setImmovable(true);
         this.obstacleGroup.add(this.obstacle);
 
-
+        //add chopsticks
+        this.chopstickGroup = this.add.group({
+            runChildUpdate: true
+        });
+        this.addChopstick();
 
         //tester = this.physics.arcade.add.sprite(32, game.config.height / 2, 'playerSprite').setOrigin(0.5);
         this.add.text(width/2, (height/2)-230, "play scene\npress S to go to endscene").setOrigin(0.5);
+        keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         
-        keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     }
+
+    addChopstick(){
+        let chopstick = new Chopstick(this, -450);
+        this.chopstickGroup.add(chopstick);
+    }
+
+
 
     update(){
         //Player update
@@ -141,13 +90,9 @@ class Play extends Phaser.Scene{
         this.physics.velocityFromRotation(this.obstacle.angle, 250, this.obstacle.body.velocity);
 
 
+        //endgame condition: when the player touches a chopstick 
 
-
-        //endgame condition: 1) when the player touches a chopstick 
-        //          advance  2) when the player touches a chopstick 3 times
-
-        //1)  when the player touches a chopstick
-
+    
         //temp scene change
         if(Phaser.Input.Keyboard.JustDown(keyS)){
             this.scene.start('endScene');
@@ -156,14 +101,7 @@ class Play extends Phaser.Scene{
 
     }
 
-    //Create Obstacle
-    createObstacle(){
-
-    }
-
-
-
-
+   
 
 }
 
