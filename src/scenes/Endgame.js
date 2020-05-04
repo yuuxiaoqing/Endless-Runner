@@ -70,7 +70,7 @@ class Endgame extends Phaser.Scene{
        
         //menu button
         //button method from https://snowbillr.github.io/blog/2018-07-03-buttons-in-phaser-3/
-        this.menu = this.add.text(width/2+100, height/2+230, "menu", {fill: '#000', fontSize: '48px',fontFamily: 'Yeon Sung'}).setOrigin(0.5)
+        this.menu = this.add.text(width/2+100, height/2+230, "menu", {fill: '#fff', fontSize: '48px',fontFamily: 'Yeon Sung'}).setOrigin(0.5)
         .setInteractive()
         .on('pointerdown', ()=>{this.menu.setStyle({fill: '#fa0', fontSize: '36px',fontFamily: 'Yeon Sung'}); this.clock = this.time.delayedCall(1300, () => {
             this.scene.start("menuScene");
@@ -81,7 +81,7 @@ class Endgame extends Phaser.Scene{
         .on('pointerout', ()=>{this.menu.setStyle({fill:'#fff', fontSize: '48px',fontFamily: 'Yeon Sung'})});
 
         //restart button
-        this.restart = this.add.text(width/2-100, height/2+230, "restart", {fill: '#000', fontSize: '48px',fontFamily: 'Yeon Sung'}).setOrigin(0.5)
+        this.restart = this.add.text(width/2-100, height/2+230, "restart", {fill: '#fff', fontSize: '48px',fontFamily: 'Yeon Sung'}).setOrigin(0.5)
         .setInteractive()
         .on('pointerdown',()=>{this.restart.setStyle({fill: '#fa0', fontSize: '36px',fontFamily: 'Yeon Sung'});
         this.clock = this.time.delayedCall(1300, () => {
