@@ -7,9 +7,13 @@ class Play extends Phaser.Scene{
     //Preload
     preload(){
         //player assets
-        this.load.image('playerSprite', './assets/playerAssets/SPRITE_person.png');
-        this.load.atlas('player', './assets/playerAssets/spritesheet.png', './assets/playerAssets/player_sprites.json');
-       
+        this.load.image('player', './assets/playerAssets/SPRITE_person.png');
+        this.load.atlas('playerSprite', './assets/playerAssets/spritesheet.png', './assets/playerAssets/player_sprites.json');
+        this.load.spritesheet('playerSpriteSheet', './assets/playerAssets/spritesheet.png', {
+            frameWidth: 50,
+            frameHeight: 50,
+            endframe: 6
+        });
         //rotating dimsum sprites
         this.load.image('bao', './assets/obstacleAssets/SPRITE_Bao.png');
         this.load.image('shrimp', './assets/obstacleAssets/SPRITE_ShrimpDumpling.png');
@@ -34,7 +38,7 @@ class Play extends Phaser.Scene{
         playerAttack = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
         //Creates the player
-        mainPlayer = new PlayerObject(this, game.config.width/2, game.config.height/2, 'player').setOrigin(0.5);
+        mainPlayer = new PlayerObject(this, game.config.width/2, game.config.height/2).setOrigin(0.5);
         mainPlayer.setDepth(1);
         this.playerShadow = this.physics.add.sprite(mainPlayer.x, mainPlayer.y + 10, 'player');
         this.playerShadow.body.allowGravity = false;
@@ -93,8 +97,19 @@ class Play extends Phaser.Scene{
        
         //Creates a score text variable
         this.scoreTEXT = this.add.text(width/2, height/2 + 220, "Score", textConfig).setOrigin(0.5);
-        this.scoreDisplay = this.add.text(width/2, height/2 + 270, score, textConfig).setOrigin(0.5);
+        this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0.5);
 
+
+       // this.jump = this.add.sprite(100,150, 'playerSpriteSheet', 0);
+        let jump = {
+            key: 'jumpAnimation',
+            frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 1,end: 2,first:0}),
+            frameRate:3,
+            repeat:-1
+        }
+
+        this.anims.create(jump);
+        this.testAnimated = this.add.sprite(200,150,'playerSprite').play('jumpAnimation');
 
         //debug key
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);

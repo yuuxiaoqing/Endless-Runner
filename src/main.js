@@ -81,8 +81,8 @@ let config = {
             }
         }
     },    
-    scene: [Menu, Play, Endgame,Tutorial]
-    //scene: [Endgame]
+    //scene: [Menu, Play, Endgame,Tutorial]
+    scene: [Play]
 
 };
 

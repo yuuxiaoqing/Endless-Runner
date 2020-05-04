@@ -1,8 +1,8 @@
 class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
     //Constructor
-    constructor(scene, x, y, texture, frame){
-        super(scene, x, y, texture, frame);
+    constructor(scene, x, y, texture){
+        super(scene, x, y, 'player');
 
         //Adds the object to the scene
         scene.add.existing(this);
@@ -20,7 +20,18 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
     }
 
     create(){
-        this.anims.on(Phaser.Animations.Events.ADD_ANIMATION, addAnimation, this);
+       
+        let jump = {
+            key: 'jumpAnimation',
+            frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 1,end: 2,first:0}),
+            frameRate:3,
+            repeat:-1
+        }
+        this.anims.create(jump);
+        this.jumpAnimated = this.scene.add.sprite(this.body.x,this.body.y,'playerSprite').play('jumpAnimation');
+
+
+
     }
 
     update(){
@@ -56,8 +67,6 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
         //Checks Jumping
         if(Phaser.Input.Keyboard.JustDown(playerJump)){
             this.jumping = true;
-            //this.anims.create({key: 'player', frames:this.anims.generateFrameNames('01', {prefix: 'SPRITE_JUMP',end: }), repeat:-1});
-            //this.add.sprite(this.x, this.y, "player", 'SPRITE_JUMP02');
             console.log("Space is being Pressed");
         } else {
             this.jumping = false;
@@ -86,6 +95,7 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
         //The Actual Jump
         if(this.jumpCount > 0 && this.jumping){
+            
             this.setVelocityY(-500);
             this.jumpCount -= 1;
         }
@@ -97,8 +107,10 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
         }
 
         //Handles jumping on objects (all objects)
-        if(this.jumpCount == 0 && this.body.velocity.y == 0  && !this.body.onCeiling()) 
+        if(this.jumpCount == 0 && this.body.velocity.y == 0  && !this.body.onCeiling()) {
             this.resetJump();
+        }
+            
         
     }
 
