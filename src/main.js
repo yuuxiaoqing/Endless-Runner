@@ -1,5 +1,5 @@
 /*
-Dim Sum Runner by Angela Jiang, Xiao Qing Yu, Nikolas Sanchez
+Dim Sum Run by Angela Jiang, Xiao Qing Yu, Nikolas Sanchez
 
 
 Credits:
