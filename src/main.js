@@ -5,7 +5,7 @@ class Menu extends Phaser.Scene{
         super('menuScene');
     }
     preload(){
-        //change it with our actual table design
+        //change it with our actual table design 
         this.load.image('table', './assets/generalAssets/table.png');
     }
     create(){
@@ -81,6 +81,7 @@ let config = {
         }
     },    
     scene: [Menu, Play, Endgame,Tutorial]
+    //scene: [Tutorial]
 
 };
 
