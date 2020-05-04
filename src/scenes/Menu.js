@@ -15,10 +15,13 @@ class Menu extends Phaser.Scene{
         //background
         this.add.rectangle(0,0,width,height, 0xFFFFFF).setOrigin(0,0);
         this.add.sprite(0, 0, 'bg').setOrigin(0,0);
-        
+
         //menu background
         this.add.sprite(0, height/2, 'menu').setScale(2).setOrigin(0.5);
         //this.add.rectangle(0,0,width/2.5,height, 0xFACADE).setOrigin(0,0);
+        this.add.sprite(10, height / 2 + 200, 'credits').setScale(.8).setOrigin(0,0);
+
+
         //title
         this.add.text(width/2-450, height/2-200, "Dim Sum Run", textConfig).setOrigin(0,0);
         this.add.text(width/2-450, height/2-150, "by Angela Jiang, Xiao Qing Yu, Nikolas Sanchez", {fill:'#000',fontFamily: 'Yeon Sung'}).setOrigin(0,0);
@@ -54,7 +57,8 @@ class Menu extends Phaser.Scene{
         .on('pointerover', ()=>{this.setting.setStyle({fill:'#fa0',fontSize: '32px',fontFamily: 'Yeon Sung'}); })
         .on('pointerout', ()=>{this.setting.setStyle({fill:'#000', fontSize: '24px',fontFamily: 'Yeon Sung'}); });
 
-        //Checks Local STorage
+
+        //Checks Local Storage
         if(window.localStorage){
             console.log('can locally store');
         } else {

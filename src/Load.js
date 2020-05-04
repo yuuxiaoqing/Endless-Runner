@@ -4,11 +4,6 @@ class Load extends Phaser.Scene{
         super('loadScene');
     }
     preload(){
-        //change it with our actual table design 
-        this.load.image('table', './assets/generalAssets/table.png');
-
-        //Loads the menu
-        this.load.image('menu', './assets/generalAssets/menu.png');
 
         //Loads background
         this.load.image('bg', './assets/generalAssets/bg.png');
@@ -16,7 +11,7 @@ class Load extends Phaser.Scene{
         //player assets
         this.load.image('player', './assets/playerAssets/SPRITE_person.png');
         this.load.atlas('playerSprite', './assets/playerAssets/spritesheet.png', './assets/playerAssets/player_sprites.json');
-        this.load.atlas('obstacle', './assets/obstacleAssets/obstacles.png', './assets/obstacleAssets/obstacles.json');
+        this.load.atlas('obstacleSprites', './assets/GeneralAssets/obstacles.png', './assets/GeneralAssets/obstacles.json');
         this.load.spritesheet('playerSpriteSheet', './assets/playerAssets/spritesheet.png', {
             frameWidth: 50,
             frameHeight: 50,
@@ -30,8 +25,11 @@ class Load extends Phaser.Scene{
         this.load.image('stickyrice', './assets/obstacleAssets/SPRITE_StickyRice.png');
 
         //general assets
+        this.load.image('menu', './assets/generalAssets/menu.png');
         this.load.image('chopstick', './assets/generalAssets/SPRITE_chopstick.png');
-        this.load.image('plate', './assets/generalAssets/SPRITE_plate.png');       
+        this.load.image('plate', './assets/generalAssets/SPRITE_plate.png');    
+        this.load.image('credits', './assets/generalAssets/credits.png');  
+        this.load.image('table', './assets/generalAssets/table.png');  
         this.load.image('smoke', './assets/generalAssets/smoke.png');
         
         //Loads audio
@@ -64,6 +62,13 @@ class Load extends Phaser.Scene{
 
         console.log("Hi. Hello.");
 
+        let textConfig = {
+            fontFamily: 'Yeon Sung',
+            fill:'#000',
+            fontSize: '40px',
+            align: 'center',
+        } 
+
         //Music stuff
         menuMusic = this.sound.add('menuSong');
         menuMusic.setLoop(true);
@@ -77,7 +82,7 @@ class Load extends Phaser.Scene{
         this.smokeEffect.body.allowGravity = false;
         //this.smokeEffect.setVelocityY(-800);
         
-        this.loading = this.add.text(width/2, height, "LOADING", {fill:'#000000',fontFamily: 'Yeon Sung'}).setOrigin(0,0);
+        this.loading = this.add.text(width/2, height, "LOADING", textConfig).setOrigin(0,0);
 
         
 

@@ -37,6 +37,9 @@ class Play extends Phaser.Scene{
             runChildUpdate: true
         });
 
+        //////////////////////////////////////////////
+        //CTTECH
+        //////////////////////////////////////////////
         //Sets a collider between the players and obstacles
         this.physics.add.collider(mainPlayer, this.obstacleGroup, mainPlayer.resetJump());
 
@@ -136,6 +139,9 @@ class Play extends Phaser.Scene{
             this.scene.start('endScene');
         }
 
+        //////////////////////////////////////////////
+        //CTTECH
+        //////////////////////////////////////////////
         //Plate Movement
         this.physics.velocityFromRotation(this.plate1.angle, 390, this.plate1.body.velocity);
         this.physics.velocityFromRotation(this.plate2.angle, 390, this.plate2.body.velocity);
@@ -159,6 +165,9 @@ class Play extends Phaser.Scene{
 
     }
 
+    //////////////////////////////////////////////
+    //CTTECH
+    //////////////////////////////////////////////
     //Creates the plates, separate function for easy access
     createPlates(){
         //Adds center plate
@@ -243,6 +252,9 @@ class Play extends Phaser.Scene{
         //State 1 - adds the points and moves to the next state
         if(this.pointTimerState == 1){
             score += 10;
+            //////////////////////////////////////////////
+            //CTTECH
+            //////////////////////////////////////////////  
             difficulty_speed -= 10;
             this.pointTimerState = 2;
         }
@@ -259,7 +271,9 @@ class Play extends Phaser.Scene{
 
 
         
-
+    //////////////////////////////////////////////
+    //CTTECH
+    //////////////////////////////////////////////
     //Adds the chopsticks
     addChopstick(){
         //difficulty speed is initially set at -300 and decrease by 10 each time the score goes up by 10.
