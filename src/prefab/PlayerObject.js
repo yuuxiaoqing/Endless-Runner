@@ -1,7 +1,7 @@
 class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
     //Constructor
-    constructor(scene, x, y, texture){
+    constructor(scene, x, y){
         super(scene, x, y, 'player');
 
         //Adds the object to the scene
@@ -23,18 +23,24 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
     }
 
     create(){
-       
         let jump = {
             key: 'jumpAnimation',
-            frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 1,end: 2,first:0}),
+            frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 1,end: 2,first:1}),
             frameRate:3,
-            repeat:-1
+            repeat:0
         }
         this.anims.create(jump);
         this.jumpAnimated = this.scene.add.sprite(this.body.x,this.body.y,'playerSprite').play('jumpAnimation');
 
+        let run = {
+            key: 'runAnimation',
+            frames:  this.anims.generateFrameNumbers('playerSpriteSheet', {start: 3,end: 6,first:3}),
+            frameRate:3,
+            repeat:0
 
-
+        }
+        this.anims.create(run);
+        this.runAnimated = this.scene.add.sprite(this.body.x,this.body.y,'playerSprite').play('runAnimation');
     }
 
     update(){
@@ -55,6 +61,8 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
         if(playerLeft.isDown){
             this.movingLeft = true;
             console.log("Left Being Pressed");
+            this.anims.play('runAnimation', true);
+            this.flipSpriteX = true;
         } else {
             this.movingLeft = false;
         }
@@ -63,6 +71,8 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
         if(playerRight.isDown){
             this.movingRight = true;
             console.log("Right Being Pressed");
+            this.anims.play('runAnimation', true);
+            this.flipSpriteX = false;
         } else {
             this.movingRight = false;
         }
@@ -75,12 +85,10 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
             this.jumping = false;
         }
 
-        //Check Attacking
-        if(Phaser.Input.Keyboard.JustDown(playerAttack)){
-            this.attacking = true;
-        } else {
-            this.attacking = false;
-        }
+        //Resets generic animation
+        if(!playerJump.isDown && !playerRight.isDown && !playerLeft.isDown)
+            this.setTexture('player');
+
     }
 
     //Novement functions
@@ -95,9 +103,9 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
         if(!this.movingLeft && !this.movingRight)
             this.setVelocityX(0);
             
-
         //The Actual Jump
         if(this.jumpCount > 0 && this.jumping){
+            this.anims.play('jumpAnimation', false);
             this.scene.sound.play('jump');
             this.setVelocityY(-500);
             this.jumpCount -= 1;
