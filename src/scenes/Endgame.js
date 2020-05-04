@@ -12,11 +12,32 @@ class Endgame extends Phaser.Scene{
         //display score on top
         //display high score on browser
 
+        
+
         //bar at the bottom
         this.add.rectangle(0,500,width,height/2, 0xFACADE).setOrigin(0,0);
 
+        if(score > highScore){
+            highScore = score;
+            localStorage.setItem('highestScore', highScore);
+        }
+
+        //Creates the text font stuff
+        let textConfig = {
+            fontFamily: 'Yeon Sung',
+            fill:'#696969',
+            fontSize: '36px',
+        } 
+
+        //Scores
+        this.scoreTEXT = this.add.text(width/2, height/2 + 160, "Score", textConfig).setOrigin(0,0);
+        this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0,0);
+
+        this.scoreTEXT = this.add.text(width/2, height/2 - 200, "High Score", textConfig).setOrigin(0,0);
+        this.scoreDisplay = this.add.text(width/2, height/2 - 160, highScore, textConfig).setOrigin(0,0);
+
         //scene title: remove later and replace with score
-        this.add.text(width/2, (height/2)-40, "end scene(score, high score)").setOrigin(0.5);
+        //this.add.text(width/2, (height/2)-40, "end scene(score, high score)").setOrigin(0.5);
 
         //menu button
         //button method from https://snowbillr.github.io/blog/2018-07-03-buttons-in-phaser-3/

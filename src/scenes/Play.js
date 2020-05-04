@@ -44,12 +44,6 @@ class Play extends Phaser.Scene{
         this.physics.add.collider(mainPlayer, this.obstacleGroup, mainPlayer.resetJump());
 
 
-        //add chopsticks
-        this.chopstickGroup = this.add.group({
-            runChildUpdate: true
-        });
-        this.addChopstick();
-
         //Adds the table background
         this.table = this.physics.add.sprite(width / 2, 0, 'table').setScale(1.5).setOrigin(0.5);
         this.table.setCircle(300);
@@ -72,16 +66,21 @@ class Play extends Phaser.Scene{
         ///// 1 - Finished, adding points
         ///// 2 - Finished, reseting.
         this.pointTimerState = 0;
-        this.points = 0;
+        score = 0;
 
         //Sets up the timer for 10 seconds
         this.clock = this.time.delayedCall(5000, () => {
             this.pointTimerState = 1;
+            //add chopsticks
+            this.chopstickGroup = this.add.group({
+                runChildUpdate: true
+            });
+            this.addChopstick();
         }, null, this);
 
         //Creates a score text variable
         this.scoreTEXT = this.add.text(width/2, height/2 + 160, "Score", textConfig).setOrigin(0,0);
-        this.scoreDisplay = this.add.text(width/2, height/2 + 200, this.points, textConfig).setOrigin(0,0);
+        this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0,0);
 
 
         //tester = this.physics.arcade.add.sprite(32, game.config.height / 2, 'playerSprite').setOrigin(0.5);
@@ -95,7 +94,7 @@ class Play extends Phaser.Scene{
         //Player update
         mainPlayer.update();
         this.playerShadow.x = mainPlayer.x;
-        this.playerShadow.y = mainPlayer.y + .01;
+        this.playerShadow.y = mainPlayer.y + 10;
 
         //Physics   
         if(this.physics.world.overlap(mainPlayer, this.obstacleGroup) && mainPlayer.y > height / 2){
@@ -205,13 +204,13 @@ class Play extends Phaser.Scene{
     //Point timer function
     updatePoints(){
         //Updates the score text
-        this.scoreDisplay.text = this.points;
+        this.scoreDisplay.text = score;
 
         //State 0 - Now we wait.
 
         //State 1 - adds the points and moves to the next state
         if(this.pointTimerState == 1){
-            this.points += 10;
+            score += 10;
             this.pointTimerState = 2;
         }
 
@@ -230,7 +229,8 @@ class Play extends Phaser.Scene{
 
     //Adds the chopsticks
     addChopstick(){
-        let chopstick = new Chopstick(this, -500);
+        let chopstick = new Chopstick(this, -450);
+        chopstick.setDepth(1);
         this.chopstickGroup.add(chopstick);
     }
 

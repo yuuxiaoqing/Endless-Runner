@@ -43,6 +43,12 @@ class Menu extends Phaser.Scene{
         .on('pointerover', ()=>{this.setting.setStyle({fill:'#fa0',fontSize: '32px',fontFamily: 'Yeon Sung'}); })
         .on('pointerout', ()=>{this.setting.setStyle({fill:'#000', fontSize: '24px',fontFamily: 'Yeon Sung'}); });
 
+        //Checks Local STorage
+        if(window.localStorage){
+            console.log('can locally store');
+        } else {
+            console.log('cannot locally store');
+        }
 
 
     }
@@ -96,5 +102,13 @@ let mainPlayer;
 
 //Player Movement / Keybinds
 let playerLeft, playerRight, playerJump, playerAttack;
+
+//Scores
+let score, highScore;
+if(localStorage.getItem('highestScore') == null){
+    localStorage.setItem('highestScore', 0);
+} else {
+    highScore = localStorage.getItem('highestScore');
+}
 
 let color = 0XFFFFFF;
