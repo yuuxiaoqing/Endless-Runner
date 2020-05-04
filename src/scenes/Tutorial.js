@@ -8,7 +8,7 @@ class Tutorial extends Phaser.Scene{
         this.load.image('siumai', './assets/obstacleAssets/SPRITE_SiuMai.png');
         this.load.image('stickyrice', './assets/obstacleAssets/SPRITE_StickyRice.png');
         this.load.image('chopstick', './assets/generalAssets/SPRITE_chopstick.png');
-        this.load.image('player', './assets/playerAssets/SPRITE_player.png');
+        this.load.image('player', './assets/playerAssets/SPRITE_JUMP01.png');
         
        
     }

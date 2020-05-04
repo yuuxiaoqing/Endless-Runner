@@ -7,7 +7,8 @@ class Play extends Phaser.Scene{
     //Preload
     preload(){
         //player assets
-        this.load.image('playerSprite', './assets/playerAssets/bacon.png');
+        this.load.image('playerSprite', './assets/playerAssets/SPRITE_person.png');
+        this.load.atlas('player', './assets/spritesheet.png', './assets/player_sprites.json');
        
         //rotating dimsum sprites
         this.load.image('bao', './assets/obstacleAssets/SPRITE_Bao.png');
@@ -31,9 +32,9 @@ class Play extends Phaser.Scene{
         playerAttack = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
         //Creates the player
-        mainPlayer = new PlayerObject(this, game.config.width/2, game.config.height/2, 'playerSprite').setOrigin(0.5);
+        mainPlayer = new PlayerObject(this, game.config.width/2, game.config.height/2, 'player').setOrigin(0.5);
         mainPlayer.setDepth(1);
-        this.playerShadow = this.physics.add.sprite(mainPlayer.x, mainPlayer.y + 10, 'playerSprite');
+        this.playerShadow = this.physics.add.sprite(mainPlayer.x, mainPlayer.y + 10, 'player');
         this.playerShadow.body.allowGravity = false;
         this.playerShadow.alpha = 0;
 

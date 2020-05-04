@@ -7,6 +7,7 @@ class Menu extends Phaser.Scene{
     preload(){
         //change it with our actual table design 
         this.load.image('table', './assets/generalAssets/table.png');
+        //this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
     }
     create(){
         let textConfig = {

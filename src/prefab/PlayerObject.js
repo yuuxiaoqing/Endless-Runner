@@ -19,6 +19,10 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
     }
 
+    create(){
+        this.anims.on(Phaser.Animations.Events.ADD_ANIMATION, addAnimation, this);
+    }
+
     update(){
         //Runs the functions
         this.playerInputs();
@@ -52,6 +56,8 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
         //Checks Jumping
         if(Phaser.Input.Keyboard.JustDown(playerJump)){
             this.jumping = true;
+            //this.anims.create({key: 'player', frames:this.anims.generateFrameNames('01', {prefix: 'SPRITE_JUMP',end: }), repeat:-1});
+            //this.add.sprite(this.x, this.y, "player", 'SPRITE_JUMP02');
             console.log("Space is being Pressed");
         } else {
             this.jumping = false;
