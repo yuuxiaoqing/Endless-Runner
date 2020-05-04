@@ -82,7 +82,15 @@ class Play extends Phaser.Scene{
         this.scoreDisplay = this.add.text(width/2, height/2 + 250, score, textConfig).setOrigin(0.5);
 
 
-        //Smoke Effects
+       // this.jump = this.add.sprite(100,150, 'playerSpriteSheet', 0);
+        let jump = {
+            key: 'jumpAnimation',
+            frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 1,end: 2,first:0}),
+            frameRate:3,
+            repeat:-1
+        }
+
+
         this.smokeEffect1 = this.physics.add.sprite(width/2, height/2, 'smoke').setOrigin(0.5);
         this.smokeEffect1.body.allowGravity = false;
         this.smokeEffect1.setVelocityY(-800);
@@ -95,9 +103,9 @@ class Play extends Phaser.Scene{
             menuMusic.stop();
 
 
+        this.anims.create(jump);
         
-        
-
+        //this.testAnimated = this.add.sprite(200,150,'playerSprite').play('jumpAnimation');
 
 
         //debug key
@@ -155,21 +163,21 @@ class Play extends Phaser.Scene{
     //Creates the plates, separate function for easy access
     createPlates(){
         //Adds center plate
-        this.plateCenter = new Obstacle(this, width / 2, 470, 'obstacles', 'SPRITE_Bao.png');
+        this.plateCenter = new Obstacle(this, width / 2, 470, 'bao');
         this.physics.add.existing(this.plateCenter);
         //this.plateCenter.setCircle(62);
         this.plateCenter.body.allowGravity = false;
         this.plateCenter.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter);
         //Adds center plate
-        this.plateCenter2 = new Obstacle(this, width / 2 + 130, 470, 'obstacles', 'SPRITE_ShrimpDumpling.png');
+        this.plateCenter2 = new Obstacle(this, width / 2 + 130, 470, 'shrimp');
         this.physics.add.existing(this.plateCenter2);
         //this.plateCenter.setCircle(62);
         this.plateCenter2.body.allowGravity = false;
         this.plateCenter2.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter2);
         //Adds center plate
-        this.plateCenter3 = new Obstacle(this, width / 2 - 130, 470, 'obstacles', 'SPRITE_SiuMai.png');
+        this.plateCenter3 = new Obstacle(this, width / 2 - 130, 470, 'siumai');
         this.physics.add.existing(this.plateCenter3);
         //this.plateCenter.setCircle(62);
         this.plateCenter3.body.allowGravity = false;
