@@ -104,7 +104,8 @@ class Play extends Phaser.Scene{
 
 
         this.anims.create(jump);
-        this.testAnimated = this.add.sprite(200,150,'playerSprite').play('jumpAnimation');
+        
+        //this.testAnimated = this.add.sprite(200,150,'playerSprite').play('jumpAnimation');
 
 
         //debug key
