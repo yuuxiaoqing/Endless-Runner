@@ -8,7 +8,7 @@ class Play extends Phaser.Scene{
     preload(){
         //player assets
         this.load.image('playerSprite', './assets/playerAssets/SPRITE_person.png');
-        this.load.atlas('player', './assets/spritesheet.png', './assets/player_sprites.json');
+        this.load.atlas('player', './assets/playerAssets/spritesheet.png', './assets/playerAssets/player_sprites.json');
        
         //rotating dimsum sprites
         this.load.image('bao', './assets/obstacleAssets/SPRITE_Bao.png');
@@ -25,6 +25,8 @@ class Play extends Phaser.Scene{
 
     //Create Function
     create(){
+        //background
+        this.add.rectangle(0,0, width, height, 0xFFFFFF).setOrigin(0,0);
         //Assigns the Keybinds
         playerLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         playerRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -63,8 +65,9 @@ class Play extends Phaser.Scene{
         //Creates the text font stuff
         let textConfig = {
             fontFamily: 'Yeon Sung',
-            fill:'#696969',
+            fill:'#000000',
             fontSize: '36px',
+            align: "center"
         } 
 
         //Adds a score timer variable
@@ -89,8 +92,8 @@ class Play extends Phaser.Scene{
 
        
         //Creates a score text variable
-        this.scoreTEXT = this.add.text(width/2, height/2 + 160, "Score", textConfig).setOrigin(0,0);
-        this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0,0);
+        this.scoreTEXT = this.add.text(width/2, height/2 + 220, "Score", textConfig).setOrigin(0.5);
+        this.scoreDisplay = this.add.text(width/2, height/2 + 270, score, textConfig).setOrigin(0.5);
 
 
         //debug key

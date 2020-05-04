@@ -74,7 +74,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false ,
             gravity: {
                 x: 0,
                 y: 1000
@@ -82,7 +82,7 @@ let config = {
         }
     },    
     scene: [Menu, Play, Endgame,Tutorial]
-    //scene: [Tutorial]
+    //scene: [Endgame]
 
 };
 
