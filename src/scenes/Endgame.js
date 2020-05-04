@@ -76,7 +76,7 @@ class Endgame extends Phaser.Scene{
         this.sound.play('select');
         this.smokeEffect2.setVelocityY(-800);})
         .on('pointerover', ()=>{this.menu.setStyle({fill:'#fa0', fontSize: '36px',fontFamily: 'Yeon Sung'});})
-        .on('pointerout', ()=>{this.menu.setStyle({fill:'#fff', fontSize: '24px',fontFamily: 'Yeon Sung'})});
+        .on('pointerout', ()=>{this.menu.setStyle({fill:'#fff', fontSize: '48px',fontFamily: 'Yeon Sung'})});
 
         //restart button
         this.restart = this.add.text(width/2-100, height/2+230, "restart", {fill: '#000', fontSize: '48px',fontFamily: 'Yeon Sung'}).setOrigin(0.5)
@@ -88,7 +88,7 @@ class Endgame extends Phaser.Scene{
         this.sound.play('select');
         this.smokeEffect2.setVelocityY(-800);})
         .on('pointerover',()=>{this.restart.setStyle({fill: '#fa0', fontSize: '36px',fontFamily: 'Yeon Sung'});})
-        .on('pointerout',()=>{this.restart.setStyle({fill: '#fff', fontSize: '24px',fontFamily: 'Yeon Sung'});});
+        .on('pointerout',()=>{this.restart.setStyle({fill: '#fff', fontSize: '48px',fontFamily: 'Yeon Sung'});});
    
         this.smokeEffect2 = this.physics.add.sprite(width/2, height/2 + 1000, 'smoke').setOrigin(0.5);
         this.smokeEffect2.body.allowGravity = false;

@@ -78,8 +78,8 @@ class Play extends Phaser.Scene{
 
        
         //Creates a score text variable
-        this.scoreTEXT = this.add.text(width/2, height/2 + 220, "Score", textConfig).setOrigin(0.5);
-        this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0.5);
+        this.scoreTEXT = this.add.text(width/2, height/2 + 200, "Score", textConfig).setOrigin(0.5);
+        this.scoreDisplay = this.add.text(width/2, height/2 + 250, score, textConfig).setOrigin(0.5);
 
 
        // this.jump = this.add.sprite(100,150, 'playerSpriteSheet', 0);
