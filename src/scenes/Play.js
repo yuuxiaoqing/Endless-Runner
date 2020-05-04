@@ -84,6 +84,13 @@ class Play extends Phaser.Scene{
             this.addChopstick();
         }, null, this);
 
+        //Player lose states
+        ///// States
+        ///// 0 - didn't lose
+        ///// 1 - lost, runs function
+        ///// 2 - lost, waiting on function
+        this.loseState = 0;
+
        
         //Creates a score text variable
         this.scoreTEXT = this.add.text(width/2, height/2 + 200, "Score", textConfig).setOrigin(0.5);
@@ -119,10 +126,12 @@ class Play extends Phaser.Scene{
 
     update(){
         //Player update
-        mainPlayer.update();
-        this.playerShadow.x = mainPlayer.x;
-        this.playerShadow.y = mainPlayer.y + 10;
-
+        if(this.loseState == 0){
+            mainPlayer.update();
+            this.playerShadow.x = mainPlayer.x;
+            this.playerShadow.y = mainPlayer.y + 10;
+        }
+            
         //Physics   
         if(this.physics.world.overlap(mainPlayer, this.obstacleGroup) && mainPlayer.y > height / 2){
             mainPlayer.pushUp();
@@ -133,10 +142,8 @@ class Play extends Phaser.Scene{
             mainPlayer.resetJump();
         
         //end the game if the player collide with the chopstick 
-        if(this.physics.world.overlap(mainPlayer, this.chopstickGroup)){
-            //console.log("here", this.chopstickGroup.children.entries)
-            this.sound.play('lose');
-            this.scene.start('endScene');
+        if(this.physics.world.overlap(mainPlayer, this.chopstickGroup) && this.loseState == 0){
+            this.loseTime();
         }
 
         //////////////////////////////////////////////
@@ -149,15 +156,21 @@ class Play extends Phaser.Scene{
         this.physics.velocityFromRotation(this.plate4.angle, 390, this.plate4.body.velocity);
 
         //Player on table checks
-        if(!this.physics.world.overlap(mainPlayer, this.table)){
-            this.sound.play('lose');
-            this.scene.start('endScene');
+        if(!this.physics.world.overlap(mainPlayer, this.table)  && this.loseState == 0){
+            this.loseTime();
         }
 
         //Calculates points
         this.updatePoints();
 
-        
+        //Ends Game
+        if(this.loseState == 1){
+            this.loseState = 1;
+            this.loseTime();
+            mainPlayer.destroy();
+            this.loseState = 2;
+        }
+
         //debug scene change
         if(Phaser.Input.Keyboard.JustDown(keyS)){
                 this.scene.start('endScene');
@@ -171,21 +184,21 @@ class Play extends Phaser.Scene{
     //Creates the plates, separate function for easy access
     createPlates(){
         //Adds center plate
-        this.plateCenter = new Obstacle(this, width / 2, 470, 'bao');
+        this.plateCenter = new Obstacle(this, width / 2, 470, 'bao',0, 0.02);
         this.physics.add.existing(this.plateCenter);
         //this.plateCenter.setCircle(62);
         this.plateCenter.body.allowGravity = false;
         this.plateCenter.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter);
         //Adds center plate
-        this.plateCenter2 = new Obstacle(this, width / 2 + 124, 470, 'shrimp');
+        this.plateCenter2 = new Obstacle(this, width / 2 + 124, 470, 'shrimp',0, 0.02);
         this.physics.add.existing(this.plateCenter2);
         //this.plateCenter.setCircle(62);
         this.plateCenter2.body.allowGravity = false;
         this.plateCenter2.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter2);
         //Adds center plate
-        this.plateCenter3 = new Obstacle(this, width / 2 - 124, 470, 'siumai');
+        this.plateCenter3 = new Obstacle(this, width / 2 - 124, 470, 'siumai',0, 0.02);
         this.physics.add.existing(this.plateCenter3);
         //this.plateCenter.setCircle(62);
         this.plateCenter3.body.allowGravity = false;
@@ -198,7 +211,7 @@ class Play extends Phaser.Scene{
         this.plateCenter3.alpha = 0;
 
         //Adds plate 1
-        this.plate1 = new Obstacle(this, width / 2, 0 - 330, 'bao');
+        this.plate1 = new Obstacle(this, width / 2, 0 - 330, 'bao',0, 0.02);
         this.physics.add.existing(this.plate1);
         //this.plate1.setCircle(62);
         this.plate1.body.allowGravity = false;
@@ -206,7 +219,7 @@ class Play extends Phaser.Scene{
         this.obstacleGroup.add(this.plate1);
 
         //Adds plate 2
-        this.plate2 = new Obstacle(this, width / 2 + 330, 0, 'shrimp');
+        this.plate2 = new Obstacle(this, width / 2 + 330, 0, 'shrimp',0, 0.02);
         this.plate2.angle = 1.5708;
         this.physics.add.existing(this.plate2);
         //this.plate2.setCircle(62);
@@ -215,7 +228,7 @@ class Play extends Phaser.Scene{
         this.obstacleGroup.add(this.plate2);
 
         //Adds plate 3
-        this.plate3 = new Obstacle(this, width / 2, 0 + 330, 'siumai');
+        this.plate3 = new Obstacle(this, width / 2, 0 + 330, 'siumai',0, 0.02);
         this.plate3.angle = 3.14159;
         this.physics.add.existing(this.plate3);
         //this.plate3.setCircle(62);
@@ -224,7 +237,7 @@ class Play extends Phaser.Scene{
         this.obstacleGroup.add(this.plate3);
 
         //Adds plate 4
-        this.plate4 = new Obstacle(this, width / 2 - 330, 0, 'stickyrice');
+        this.plate4 = new Obstacle(this, width / 2 - 330, 0, 'stickyrice',0, 0.02);
         this.plate4.angle = 4.71239;
         this.physics.add.existing(this.plate4);
         //this.plate4.setCircle(62);
@@ -234,7 +247,7 @@ class Play extends Phaser.Scene{
 
 
         //add center plate
-        this.centerPlate = new Obstacle(this, width/2, 0, "plate");
+        this.centerPlate = new Obstacle(this, width/2, 0, "plate",0, 0.02);
         this.physics.add.existing(this.centerPlate);
         this.centerPlate.body.allowGravity = false;
         this.centerPlate.body.setImmovable(true);
@@ -268,8 +281,6 @@ class Play extends Phaser.Scene{
         }
 
     }
-
-
         
     //////////////////////////////////////////////
     //CTTECH
@@ -281,6 +292,23 @@ class Play extends Phaser.Scene{
         console.log("difficulty speed:", difficulty_speed);
         chopstick.setDepth(1);
         this.chopstickGroup.add(chopstick);
+    }
+
+    //Plays when the player loses
+    loseTime(){
+        this.loseState = 1;
+            if(this.loseState == 1){
+                this.add.sprite(mainPlayer.x, mainPlayer.y, 'death').setOrigin(0.5);
+                mainPlayer.destroy();
+                this.sound.play('lose');
+                this.loseState = 2;
+            }
+            this.loseState = 2;
+            this.clock2 = this.time.delayedCall(1500, () => {
+                this.scene.start('endScene');
+            }, null, this);
+            mainPlayer.destroy();
+            this.loseState = 2;
     }
 
 
