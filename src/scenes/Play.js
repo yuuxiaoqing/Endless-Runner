@@ -6,21 +6,6 @@ class Play extends Phaser.Scene{
      
     //Preload
     preload(){
-        //player assets
-        this.load.image('playerSprite', './assets/playerAssets/SPRITE_person.png');
-        this.load.atlas('player', './assets/spritesheet.png', './assets/player_sprites.json');
-       
-        //rotating dimsum sprites
-        this.load.image('bao', './assets/obstacleAssets/SPRITE_Bao.png');
-        this.load.image('shrimp', './assets/obstacleAssets/SPRITE_ShrimpDumpling.png');
-        this.load.image('siumai', './assets/obstacleAssets/SPRITE_SiuMai.png');
-        this.load.image('stickyrice', './assets/obstacleAssets/SPRITE_StickyRice.png');
-
-        //general assets
-        this.load.image('chopstick', './assets/generalAssets/SPRITE_chopstick.png');
-        this.load.image('plate', './assets/generalAssets/SPRITE_plate.png')
-        this.load.image('table', './assets/generalAssets/table.png');
-       
     }
 
     //Create Function
@@ -50,7 +35,6 @@ class Play extends Phaser.Scene{
         //Sets a collider between the players and obstacles
         this.physics.add.collider(mainPlayer, this.obstacleGroup, mainPlayer.resetJump());
 
-
         //Adds the table background
         this.table = this.physics.add.sprite(width / 2, 0, 'table').setScale(1.5).setOrigin(0.5);
         this.table.setCircle(300);
@@ -75,10 +59,11 @@ class Play extends Phaser.Scene{
         this.pointTimerState = 0;
         score = 0;
 
-        //declare chopsticks group
+        //declare chopsticks group and speed
         this.chopstickGroup = this.add.group({
             runChildUpdate: true
         });
+        difficulty_speed = -300
 
         //Sets up the timer for 10 seconds
         this.clock = this.time.delayedCall(5000, () => {
@@ -92,9 +77,22 @@ class Play extends Phaser.Scene{
         this.scoreTEXT = this.add.text(width/2, height/2 + 160, "Score", textConfig).setOrigin(0,0);
         this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0,0);
 
+        this.smokeEffect1 = this.physics.add.sprite(width/2, height/2, 'smoke').setOrigin(0.5);
+        this.smokeEffect1.body.allowGravity = false;
+        this.smokeEffect1.setVelocityY(-800);
+        this.smokeEffect1.setDepth(2);
+
+    //Plays the music
+        if(!gameMusic.isPlaying)
+            gameMusic.play();
+        if(menuMusic.isPlaying)
+            menuMusic.stop();
+
 
         //debug key
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
+
         
     }
 
@@ -116,6 +114,7 @@ class Play extends Phaser.Scene{
         //end the game if the player collide with the chopstick 
         if(this.physics.world.overlap(mainPlayer, this.chopstickGroup)){
             //console.log("here", this.chopstickGroup.children.entries)
+            this.sound.play('lose');
             this.scene.start('endScene');
         }
 
@@ -126,8 +125,10 @@ class Play extends Phaser.Scene{
         this.physics.velocityFromRotation(this.plate4.angle, 390, this.plate4.body.velocity);
 
         //Player on table checks
-        if(!this.physics.world.overlap(mainPlayer, this.table))
+        if(!this.physics.world.overlap(mainPlayer, this.table)){
+            this.sound.play('lose');
             this.scene.start('endScene');
+        }
 
         //Calculates points
         this.updatePoints();
@@ -137,7 +138,6 @@ class Play extends Phaser.Scene{
         if(Phaser.Input.Keyboard.JustDown(keyS)){
                 this.scene.start('endScene');
         }
-
 
     }
 
@@ -211,8 +211,7 @@ class Play extends Phaser.Scene{
         this.physics.add.existing(this.centerPlate);
         this.centerPlate.body.allowGravity = false;
         this.centerPlate.body.setImmovable(true);
-        this.obstacleGroup.add(this.centerPlate);
-
+        this.centerPlate.body.angularVelocity = 30;
 
     }
 

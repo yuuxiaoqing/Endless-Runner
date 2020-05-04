@@ -19,6 +19,9 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
     }
 
+    preload(){
+    }
+
     create(){
         this.anims.on(Phaser.Animations.Events.ADD_ANIMATION, addAnimation, this);
     }
@@ -86,6 +89,7 @@ class PlayerObject extends Phaser.Physics.Arcade.Sprite{
 
         //The Actual Jump
         if(this.jumpCount > 0 && this.jumping){
+            this.scene.sound.play('jump');
             this.setVelocityY(-500);
             this.jumpCount -= 1;
         }
