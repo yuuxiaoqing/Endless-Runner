@@ -82,15 +82,7 @@ class Play extends Phaser.Scene{
         this.scoreDisplay = this.add.text(width/2, height/2 + 250, score, textConfig).setOrigin(0.5);
 
 
-       // this.jump = this.add.sprite(100,150, 'playerSpriteSheet', 0);
-        let jump = {
-            key: 'jumpAnimation',
-            frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 1,end: 2,first:0}),
-            frameRate:3,
-            repeat:-1
-        }
-
-
+        //Smoke Effects
         this.smokeEffect1 = this.physics.add.sprite(width/2, height/2, 'smoke').setOrigin(0.5);
         this.smokeEffect1.body.allowGravity = false;
         this.smokeEffect1.setVelocityY(-800);
@@ -103,9 +95,9 @@ class Play extends Phaser.Scene{
             menuMusic.stop();
 
 
-        this.anims.create(jump);
         
-        //this.testAnimated = this.add.sprite(200,150,'playerSprite').play('jumpAnimation');
+        
+
 
 
         //debug key

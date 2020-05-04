@@ -37,8 +37,28 @@ class Load extends Phaser.Scene{
 
     }
     create(){
+
+        //Animations
+        let jump = {
+            key: 'jumpAnimation',
+            frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 1,end: 2,first:1}),
+            frameRate:3,
+            repeat:0
+        }
+        this.anims.create(jump);
+
+        let run = {
+            key: 'runAnimation',
+            frames:  this.anims.generateFrameNumbers('playerSpriteSheet', {start: 3,end: 6,first:3}),
+            frameRate:5,
+            repeat:0
+
+        }
+        this.anims.create(run);
+
         console.log("Hi. Hello.");
 
+        //Music stuff
         menuMusic = this.sound.add('menuSong');
         menuMusic.setLoop(true);
         menuMusic.stop();
