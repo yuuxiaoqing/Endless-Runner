@@ -8,8 +8,13 @@ class Load extends Phaser.Scene{
         this.load.image('table', './assets/generalAssets/table.png');
 
         //player assets
-        this.load.image('playerSprite', './assets/playerAssets/SPRITE_person.png');
-        this.load.atlas('player', './assets/spritesheet.png', './assets/player_sprites.json');
+        this.load.image('player', './assets/playerAssets/SPRITE_person.png');
+        this.load.atlas('playerSprite', './assets/playerAssets/spritesheet.png', './assets/playerAssets/player_sprites.json');
+        this.load.spritesheet('playerSpriteSheet', './assets/playerAssets/spritesheet.png', {
+            frameWidth: 50,
+            frameHeight: 50,
+            endframe: 6
+        });
        
         //rotating dimsum sprites
         this.load.image('bao', './assets/obstacleAssets/SPRITE_Bao.png');
