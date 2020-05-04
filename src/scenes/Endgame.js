@@ -12,7 +12,6 @@ class Endgame extends Phaser.Scene{
         //display score on top
         //display high score on browser
 
-        
 
         //bar at the bottom
         this.add.rectangle(0,500,width,height/2, 0xFACADE).setOrigin(0,0);
@@ -30,15 +29,13 @@ class Endgame extends Phaser.Scene{
         } 
 
         //Scores
-        this.scoreTEXT = this.add.text(width/2, height/2 + 160, "Score", textConfig).setOrigin(0,0);
-        this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0,0);
+        this.scoreTEXT = this.add.text(width/2, height/2 + 160, "Score", textConfig).setOrigin(0.5);
+        this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0.5);
 
-        this.scoreTEXT = this.add.text(width/2, height/2 - 200, "High Score", textConfig).setOrigin(0,0);
-        this.scoreDisplay = this.add.text(width/2, height/2 - 160, highScore, textConfig).setOrigin(0,0);
+        this.scoreTEXT = this.add.text(width/2, height/2 - 200, "High Score", textConfig).setOrigin(0.5);
+        this.scoreDisplay = this.add.text(width/2, height/2 - 160, highScore, textConfig).setOrigin(0.5);
 
-        //scene title: remove later and replace with score
-        //this.add.text(width/2, (height/2)-40, "end scene(score, high score)").setOrigin(0.5);
-
+       
         //menu button
         //button method from https://snowbillr.github.io/blog/2018-07-03-buttons-in-phaser-3/
         this.menu = this.add.text(width/2+100, height/2+270, "menu", {fill: '#fff', fontSize: '24px',fontFamily: 'Yeon Sung'}).setOrigin(0.5)
@@ -54,10 +51,10 @@ class Endgame extends Phaser.Scene{
         .on('pointerover',()=>{this.restart.setStyle({fill: '#fa0', fontSize: '36px',fontFamily: 'Yeon Sung'});})
         .on('pointerout',()=>{this.restart.setStyle({fill: '#fff', fontSize: '24px',fontFamily: 'Yeon Sung'});});
     }
-    update(){
+    // update(){
 
        
        
-    }
+    // }
 
 }

@@ -6,14 +6,20 @@ class Play extends Phaser.Scene{
      
     //Preload
     preload(){
+        //player assets
         this.load.image('playerSprite', './assets/playerAssets/bacon.png');
-       // this.load.image('joepera', './assets/generalAssets/joe.png');
-        //this.load.image('weewoo', './assets/generalAssets/table.png');
-       // this.load.image('joeball', './assets/obstacleAssets/joeball.png');
-        this.load.image('temp', './assets/chop.png');
+       
+        //rotating dimsum sprites
+        this.load.image('bao', './assets/obstacleAssets/SPRITE_Bao.png');
+        this.load.image('shrimp', './assets/obstacleAssets/SPRITE_ShrimpDumpling.png');
+        this.load.image('siumai', './assets/obstacleAssets/SPRITE_SiuMai.png');
+        this.load.image('stickyrice', './assets/obstacleAssets/SPRITE_StickyRice.png');
 
+        //general assets
+        this.load.image('chopstick', './assets/generalAssets/SPRITE_chopstick.png');
+        this.load.image('plate', './assets/generalAssets/SPRITE_plate.png')
         this.load.image('table', './assets/generalAssets/table.png');
-        this.load.image('joeball', './assets/obstacleAssets/joeball.png')
+       
     }
 
     //Create Function
@@ -68,24 +74,25 @@ class Play extends Phaser.Scene{
         this.pointTimerState = 0;
         score = 0;
 
+        //declare chopsticks group
+        this.chopstickGroup = this.add.group({
+            runChildUpdate: true
+        });
+
         //Sets up the timer for 10 seconds
         this.clock = this.time.delayedCall(5000, () => {
             this.pointTimerState = 1;
             //add chopsticks
-            this.chopstickGroup = this.add.group({
-                runChildUpdate: true
-            });
             this.addChopstick();
         }, null, this);
 
+       
         //Creates a score text variable
         this.scoreTEXT = this.add.text(width/2, height/2 + 160, "Score", textConfig).setOrigin(0,0);
         this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0,0);
 
 
-        //tester = this.physics.arcade.add.sprite(32, game.config.height / 2, 'playerSprite').setOrigin(0.5);
-        this.add.text(width/2, (height/2)-230, "play scene\npress S to go to endscene").setOrigin(0.5);
-        
+        //debug key
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         
     }
@@ -105,10 +112,11 @@ class Play extends Phaser.Scene{
         if(this.physics.world.overlap(this.playerShadow, this.obstacleGroup))
             mainPlayer.resetJump();
         
-        //end the game if the player collide with the chopstick
-        this.physics.world.collide(mainPlayer, this.chopstickGroup,()=>{
+        //end the game if the player collide with the chopstick 
+        if(this.physics.world.overlap(mainPlayer, this.chopstickGroup)){
+            //console.log("here", this.chopstickGroup.children.entries)
             this.scene.start('endScene');
-        });
+        }
 
         //Plate Movement
         this.physics.velocityFromRotation(this.plate1.angle, 390, this.plate1.body.velocity);
@@ -123,12 +131,8 @@ class Play extends Phaser.Scene{
         //Calculates points
         this.updatePoints();
 
-        //endgame condition: 1) when the player touches a chopstick 
-        //          advance  2) when the player touches a chopstick 3 times
-
-        //1)  when the player touches a chopstick
-
-        //temp scene change
+        
+        //debug scene change
         if(Phaser.Input.Keyboard.JustDown(keyS)){
                 this.scene.start('endScene');
         }
@@ -139,21 +143,21 @@ class Play extends Phaser.Scene{
     //Creates the plates, separate function for easy access
     createPlates(){
         //Adds center plate
-        this.plateCenter = new Obstacle(this, width / 2, 470, 'joeball');
+        this.plateCenter = new Obstacle(this, width / 2, 470, 'bao');
         this.physics.add.existing(this.plateCenter);
         //this.plateCenter.setCircle(62);
         this.plateCenter.body.allowGravity = false;
         this.plateCenter.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter);
         //Adds center plate
-        this.plateCenter2 = new Obstacle(this, width / 2 + 130, 470, 'joeball');
+        this.plateCenter2 = new Obstacle(this, width / 2 + 130, 470, 'shrimp');
         this.physics.add.existing(this.plateCenter2);
         //this.plateCenter.setCircle(62);
         this.plateCenter2.body.allowGravity = false;
         this.plateCenter2.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter2);
         //Adds center plate
-        this.plateCenter3 = new Obstacle(this, width / 2 - 130, 470, 'joeball');
+        this.plateCenter3 = new Obstacle(this, width / 2 - 130, 470, 'siumai');
         this.physics.add.existing(this.plateCenter3);
         //this.plateCenter.setCircle(62);
         this.plateCenter3.body.allowGravity = false;
@@ -166,7 +170,7 @@ class Play extends Phaser.Scene{
         this.plateCenter3.alpha = 0;
 
         //Adds plate 1
-        this.plate1 = new Obstacle(this, width / 2, 0 - 330, 'joeball');
+        this.plate1 = new Obstacle(this, width / 2, 0 - 330, 'bao');
         this.physics.add.existing(this.plate1);
         //this.plate1.setCircle(62);
         this.plate1.body.allowGravity = false;
@@ -174,7 +178,7 @@ class Play extends Phaser.Scene{
         this.obstacleGroup.add(this.plate1);
 
         //Adds plate 2
-        this.plate2 = new Obstacle(this, width / 2 + 330, 0, 'joeball');
+        this.plate2 = new Obstacle(this, width / 2 + 330, 0, 'shrimp');
         this.plate2.angle = 1.5708;
         this.physics.add.existing(this.plate2);
         //this.plate2.setCircle(62);
@@ -183,7 +187,7 @@ class Play extends Phaser.Scene{
         this.obstacleGroup.add(this.plate2);
 
         //Adds plate 3
-        this.plate3 = new Obstacle(this, width / 2, 0 + 330, 'joeball');
+        this.plate3 = new Obstacle(this, width / 2, 0 + 330, 'siumai');
         this.plate3.angle = 3.14159;
         this.physics.add.existing(this.plate3);
         //this.plate3.setCircle(62);
@@ -192,13 +196,23 @@ class Play extends Phaser.Scene{
         this.obstacleGroup.add(this.plate3);
 
         //Adds plate 4
-        this.plate4 = new Obstacle(this, width / 2 - 330, 0, 'joeball');
+        this.plate4 = new Obstacle(this, width / 2 - 330, 0, 'stickyrice');
         this.plate4.angle = 4.71239;
         this.physics.add.existing(this.plate4);
         //this.plate4.setCircle(62);
         this.plate4.body.allowGravity = false;
         this.plate4.body.setImmovable(true);
         this.obstacleGroup.add(this.plate4);
+
+
+        //add center plate
+        this.centerPlate = new Obstacle(this, width/2, 0, "plate");
+        this.physics.add.existing(this.centerPlate);
+        this.centerPlate.body.allowGravity = false;
+        this.centerPlate.body.setImmovable(true);
+        this.obstacleGroup.add(this.centerPlate);
+
+
     }
 
     //Point timer function
@@ -211,6 +225,7 @@ class Play extends Phaser.Scene{
         //State 1 - adds the points and moves to the next state
         if(this.pointTimerState == 1){
             score += 10;
+            difficulty_speed -= 10;
             this.pointTimerState = 2;
         }
 
@@ -229,7 +244,9 @@ class Play extends Phaser.Scene{
 
     //Adds the chopsticks
     addChopstick(){
-        let chopstick = new Chopstick(this, -450);
+        //difficulty speed is initially set at -300 and decrease by 10 each time the score goes up by 10.
+        let chopstick = new Chopstick(this, difficulty_speed);
+        console.log("difficulty speed:", difficulty_speed);
         chopstick.setDepth(1);
         this.chopstickGroup.add(chopstick);
     }

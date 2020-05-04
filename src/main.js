@@ -29,6 +29,7 @@ class Menu extends Phaser.Scene{
         table.body.allowGravity = false;
 
 
+
         //start button
         this.start = this.add.text(width/2-350, height/2-100, "start game", {fill:'#000', fontSize: '24px',fontFamily: 'Yeon Sung'}).setOrigin(0,0)
         //basic text button method from https://snowbillr.github.io/blog/2018-07-03-buttons-in-phaser-3/
@@ -87,7 +88,7 @@ let game = new Phaser.Game(config);
 
 let width = game.config.width;
 let height = game.config.height;
-//declare start game key, change to buttons on the screen later
+//debug key for scene transition
 let keyS;
 
 //loading google text, taken from: https://phaser.io/examples/v2/text/google-webfonts
@@ -111,4 +112,6 @@ if(localStorage.getItem('highestScore') == null){
     highScore = localStorage.getItem('highestScore');
 }
 
-let color = 0XFFFFFF;
+//Speed
+let difficulty_speed = -300;
+
