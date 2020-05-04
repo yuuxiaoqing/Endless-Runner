@@ -21,7 +21,7 @@ class Tutorial extends Phaser.Scene{
         //bar at the bottom
         this.add.rectangle(0,500,width,height/2, 0xFACADE).setOrigin(0,0);
         //scene title
-        this.add.text(width/2,height/2-280, 'How To Play',{fontSize:'48px',fontFamily: 'Yeon Sung', fill: '#000'}).setOrigin(0.5);
+        //this.add.text(width/2,height/2-280, 'How To Play',{fontSize:'48px',fontFamily: 'Yeon Sung', fill: '#000'}).setOrigin(0.5);
 
         //instructions
         this.add.text(width/2,height/2-235, 'You are a delicious dimsum bun on the run from being EATEN!',{fontSize:'30px',fontFamily: 'Yeon Sung', fill: '#000'}).setOrigin(0.5);
