@@ -17,9 +17,10 @@ class Tutorial extends Phaser.Scene{
 
         //background 
         this.add.rectangle(0,0, width, height, 0xFFFFFF).setOrigin(0,0);
+        this.add.sprite(0, 0, 'bg').setOrigin(0,0);
         
         //bar at the bottom
-        this.add.rectangle(0,500,width,height/2, 0xFACADE).setOrigin(0,0);
+        this.add.rectangle(0,500,width,height/2, 0x084f23).setOrigin(0,0);
         //scene title
         //this.add.text(width/2,height/2-280, 'How To Play',{fontSize:'48px',fontFamily: 'Yeon Sung', fill: '#000'}).setOrigin(0.5);
 

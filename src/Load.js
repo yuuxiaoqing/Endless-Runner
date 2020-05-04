@@ -7,6 +7,12 @@ class Load extends Phaser.Scene{
         //change it with our actual table design 
         this.load.image('table', './assets/generalAssets/table.png');
 
+        //Loads the menu
+        this.load.image('menu', './assets/generalAssets/menu.png');
+
+        //Loads background
+        this.load.image('bg', './assets/generalAssets/bg.png');
+
         //player assets
         this.load.image('player', './assets/playerAssets/SPRITE_person.png');
         this.load.atlas('playerSprite', './assets/playerAssets/spritesheet.png', './assets/playerAssets/player_sprites.json');

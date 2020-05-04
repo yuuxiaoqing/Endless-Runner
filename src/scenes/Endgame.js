@@ -14,13 +14,15 @@ class Endgame extends Phaser.Scene{
 
         //background
         this.add.rectangle(0,0,width,height, 0xFFFFFF).setOrigin(0,0);
+        this.add.sprite(0, 0, 'bg').setOrigin(0,0);
+
 
         //receipt
         this.add.rectangle(width/3,10,width/3,3*(height/3), 0xD1D1D1).setOrigin(0,0);
 
 
         //bar at the bottom
-        this.add.rectangle(0,500,width,height/2, 0xFACADE).setOrigin(0,0);
+        this.add.rectangle(0,500,width,height/2, 0x084f23).setOrigin(0,0);
 
         if(score > highScore){
             highScore = score;

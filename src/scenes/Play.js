@@ -13,6 +13,8 @@ class Play extends Phaser.Scene{
     create(){
         //background
         this.add.rectangle(0,0, width, height, 0xFFFFFF).setOrigin(0,0);
+        this.add.sprite(0, 0, 'bg').setOrigin(0,0);
+
         //Assigns the Keybinds
         playerLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         playerRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -43,6 +45,9 @@ class Play extends Phaser.Scene{
         this.table.setCircle(300);
         this.table.body.angularVelocity = 40;
         this.table.body.allowGravity = false;
+
+        //Sets menu
+        this.add.sprite(width/2, height/2 + 385, 'menu').setOrigin(0.5);
 
         //Adds the plates
         this.createPlates();
@@ -93,12 +98,6 @@ class Play extends Phaser.Scene{
             gameMusic.play();
         if(menuMusic.isPlaying)
             menuMusic.stop();
-
-
-        
-        
-
-
 
         //debug key
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -162,14 +161,14 @@ class Play extends Phaser.Scene{
         this.plateCenter.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter);
         //Adds center plate
-        this.plateCenter2 = new Obstacle(this, width / 2 + 130, 470, 'shrimp');
+        this.plateCenter2 = new Obstacle(this, width / 2 + 124, 470, 'shrimp');
         this.physics.add.existing(this.plateCenter2);
         //this.plateCenter.setCircle(62);
         this.plateCenter2.body.allowGravity = false;
         this.plateCenter2.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter2);
         //Adds center plate
-        this.plateCenter3 = new Obstacle(this, width / 2 - 130, 470, 'siumai');
+        this.plateCenter3 = new Obstacle(this, width / 2 - 124, 470, 'siumai');
         this.physics.add.existing(this.plateCenter3);
         //this.plateCenter.setCircle(62);
         this.plateCenter3.body.allowGravity = false;
