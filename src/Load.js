@@ -10,6 +10,7 @@ class Load extends Phaser.Scene{
         //player assets
         this.load.image('player', './assets/playerAssets/SPRITE_person.png');
         this.load.atlas('playerSprite', './assets/playerAssets/spritesheet.png', './assets/playerAssets/player_sprites.json');
+        this.load.atlas('obstacle', './assets/obstacleAssets/obstacles.png', './assets/obstacleAssets/obstacles.json');
         this.load.spritesheet('playerSpriteSheet', './assets/playerAssets/spritesheet.png', {
             frameWidth: 50,
             frameHeight: 50,

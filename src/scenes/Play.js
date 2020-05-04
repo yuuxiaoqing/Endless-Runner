@@ -163,21 +163,21 @@ class Play extends Phaser.Scene{
     //Creates the plates, separate function for easy access
     createPlates(){
         //Adds center plate
-        this.plateCenter = new Obstacle(this, width / 2, 470, 'bao');
+        this.plateCenter = new Obstacle(this, width / 2, 470, 'obstacles', 'SPRITE_Bao.png');
         this.physics.add.existing(this.plateCenter);
         //this.plateCenter.setCircle(62);
         this.plateCenter.body.allowGravity = false;
         this.plateCenter.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter);
         //Adds center plate
-        this.plateCenter2 = new Obstacle(this, width / 2 + 130, 470, 'shrimp');
+        this.plateCenter2 = new Obstacle(this, width / 2 + 130, 470, 'obstacles', 'SPRITE_ShrimpDumpling.png');
         this.physics.add.existing(this.plateCenter2);
         //this.plateCenter.setCircle(62);
         this.plateCenter2.body.allowGravity = false;
         this.plateCenter2.body.setImmovable(true);
         this.obstacleGroup.add(this.plateCenter2);
         //Adds center plate
-        this.plateCenter3 = new Obstacle(this, width / 2 - 130, 470, 'siumai');
+        this.plateCenter3 = new Obstacle(this, width / 2 - 130, 470, 'obstacles', 'SPRITE_SiuMai.png');
         this.physics.add.existing(this.plateCenter3);
         //this.plateCenter.setCircle(62);
         this.plateCenter3.body.allowGravity = false;
