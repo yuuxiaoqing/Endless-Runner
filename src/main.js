@@ -1,4 +1,13 @@
-//initial set up, will move menu to a separate js file
+/*
+Dim Sum Run by Angela Jiang, Xiao Qing Yu, Nikolas Sanchez
+
+
+Credits:
+Music(CC): Shenyang by Kevin MacLeod -> Link: https://incompetech.filmmusic.io/song/4346-shenyang
+Ishikari Lore by Kevin MacLeod -> Link: https://incompetech.filmmusic.io/song/3929-ishikari-lore
+License: http://creativecommons.org/licenses/by/4.0/
+
+*/
 //game settings
 let config = {
 
