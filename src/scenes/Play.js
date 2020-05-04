@@ -150,10 +150,10 @@ class Play extends Phaser.Scene{
         //CTTECH
         //////////////////////////////////////////////
         //Plate Movement
-        this.physics.velocityFromRotation(this.plate1.angle, 390, this.plate1.body.velocity);
-        this.physics.velocityFromRotation(this.plate2.angle, 390, this.plate2.body.velocity);
-        this.physics.velocityFromRotation(this.plate3.angle, 390, this.plate3.body.velocity);
-        this.physics.velocityFromRotation(this.plate4.angle, 390, this.plate4.body.velocity);
+        this.physics.velocityFromRotation(this.plate1.angleInitial, 390, this.plate1.body.velocity);
+        this.physics.velocityFromRotation(this.plate2.angleInitial, 390, this.plate2.body.velocity);
+        this.physics.velocityFromRotation(this.plate3.angleInitial, 390, this.plate3.body.velocity);
+        this.physics.velocityFromRotation(this.plate4.angleInitial, 390, this.plate4.body.velocity);
 
         //Player on table checks
         if(!this.physics.world.overlap(mainPlayer, this.table)  && this.loseState == 0){
@@ -220,7 +220,7 @@ class Play extends Phaser.Scene{
 
         //Adds plate 2
         this.plate2 = new Obstacle(this, width / 2 + 330, 0, 'shrimp',0, 0.02);
-        this.plate2.angle = 1.5708;
+        this.plate2.angleInitial = 1.5708;
         this.physics.add.existing(this.plate2);
         //this.plate2.setCircle(62);
         this.plate2.body.allowGravity = false;
@@ -229,7 +229,7 @@ class Play extends Phaser.Scene{
 
         //Adds plate 3
         this.plate3 = new Obstacle(this, width / 2, 0 + 330, 'siumai',0, 0.02);
-        this.plate3.angle = 3.14159;
+        this.plate3.angleInitial = 3.14159;
         this.physics.add.existing(this.plate3);
         //this.plate3.setCircle(62);
         this.plate3.body.allowGravity = false;
@@ -238,7 +238,7 @@ class Play extends Phaser.Scene{
 
         //Adds plate 4
         this.plate4 = new Obstacle(this, width / 2 - 330, 0, 'stickyrice',0, 0.02);
-        this.plate4.angle = 4.71239;
+        this.plate4.angleInitial = 4.71239;
         this.physics.add.existing(this.plate4);
         //this.plate4.setCircle(62);
         this.plate4.body.allowGravity = false;

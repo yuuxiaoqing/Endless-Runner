@@ -9,7 +9,7 @@ class Menu extends Phaser.Scene{
     create(){
         let textConfig = {
             fontFamily: 'Yeon Sung',
-            fill:'#000',
+            fill:'#2f631c',
             fontSize: '36px',
         } 
         //background
@@ -17,14 +17,15 @@ class Menu extends Phaser.Scene{
         this.add.sprite(0, 0, 'bg').setOrigin(0,0);
 
         //menu background
-        this.add.sprite(0, height/2, 'menu').setScale(2).setOrigin(0.5);
-        //this.add.rectangle(0,0,width/2.5,height, 0xFACADE).setOrigin(0,0);
+        this.add.sprite(169, height/2, 'menu').setScale(1.1).setOrigin(0.5);
+        this.menuTextBox = this.add.rectangle(0,0,width/2.5 - 10,height, 0xFFFFFF).setOrigin(0,0);
+        this.menuTextBox.alpha = .4;
         this.add.sprite(10, height / 2 + 200, 'credits').setScale(.8).setOrigin(0,0);
 
 
         //title
         this.add.text(width/2-450, height/2-200, "Dim Sum Run", textConfig).setOrigin(0,0);
-        this.add.text(width/2-450, height/2-150, "by Angela Jiang, Xiao Qing Yu, Nikolas Sanchez", {fill:'#000',fontFamily: 'Yeon Sung'}).setOrigin(0,0);
+        this.add.text(width/2-450, height/2-150, "by Angela Jiang, Xiao Qing Yu, Nikolas Sanchez", {fill:'#2f631c',fontFamily: 'Yeon Sung'}).setOrigin(0,0);
         //rotating dimsum table
         //taken from Professor Nathan's BigBodies repo
         //its a square physic body btw
@@ -33,7 +34,7 @@ class Menu extends Phaser.Scene{
         table.body.allowGravity = false;
 
         //start button
-        this.start = this.add.text(width/2-450, height/2-100, "start game", {fill:'#000', fontSize: '24px',fontFamily: 'Yeon Sung'}).setOrigin(0,0)
+        this.start = this.add.text(width/2-450, height/2-100, "start game", {fill:'#2f631c', fontSize: '24px',fontFamily: 'Yeon Sung'}).setOrigin(0,0)
         //basic text button method from https://snowbillr.github.io/blog/2018-07-03-buttons-in-phaser-3/
         .setInteractive()
         .on('pointerdown', ()=>{this.start.setStyle({fill:'#fa0', fontSize: '32px',fontFamily: 'Yeon Sung'}); 
@@ -44,9 +45,9 @@ class Menu extends Phaser.Scene{
         this.sound.play('select');
         })
         .on('pointerover', ()=>{this.start.setStyle({fill:'#fa0', fontSize: '32px',fontFamily: 'Yeon Sung'}); })
-        .on('pointerout', ()=>{this.start.setStyle({fill:'#000', fontSize: '24px',fontFamily: 'Yeon Sung'}); });
+        .on('pointerout', ()=>{this.start.setStyle({fill:'#2f631c', fontSize: '24px',fontFamily: 'Yeon Sung'}); });
         //tutorial button takes you to the tutorial image
-        this.setting = this.add.text(width/2-450, height/2, "how to play", {fill:'#000', fontSize: '24px',fontFamily: 'Yeon Sung'}).setOrigin(0,0)
+        this.setting = this.add.text(width/2-450, height/2, "how to play", {fill:'#2f631c', fontSize: '24px',fontFamily: 'Yeon Sung'}).setOrigin(0,0)
         .setInteractive()
         .on('pointerdown', ()=>{this.setting.setStyle({fill:'#fa0', fontSize: '32px',fontFamily: 'Yeon Sung'}); 
         this.clock = this.time.delayedCall(1300, () => {
@@ -55,7 +56,7 @@ class Menu extends Phaser.Scene{
         this.smokeEffect2.setVelocityY(-800);
         this.sound.play('select');})
         .on('pointerover', ()=>{this.setting.setStyle({fill:'#fa0',fontSize: '32px',fontFamily: 'Yeon Sung'}); })
-        .on('pointerout', ()=>{this.setting.setStyle({fill:'#000', fontSize: '24px',fontFamily: 'Yeon Sung'}); });
+        .on('pointerout', ()=>{this.setting.setStyle({fill:'#2f631c', fontSize: '24px',fontFamily: 'Yeon Sung'}); });
 
 
         //Checks Local Storage
@@ -91,10 +92,10 @@ class Menu extends Phaser.Scene{
         //////////////////////////////////////////////
         //Plate Movement
         
-        this.physics.velocityFromRotation(this.plate1.angle, 180, this.plate1.body.velocity);
-        this.physics.velocityFromRotation(this.plate2.angle, 180, this.plate2.body.velocity);
-        this.physics.velocityFromRotation(this.plate3.angle, 180, this.plate3.body.velocity);
-        this.physics.velocityFromRotation(this.plate4.angle, 180, this.plate4.body.velocity);
+        this.physics.velocityFromRotation(this.plate1.angleInitial, 180, this.plate1.body.velocity);
+        this.physics.velocityFromRotation(this.plate2.angleInitial, 180, this.plate2.body.velocity);
+        this.physics.velocityFromRotation(this.plate3.angleInitial, 180, this.plate3.body.velocity);
+        this.physics.velocityFromRotation(this.plate4.angleInitial, 180, this.plate4.body.velocity);
         
         this.plate1.update();
         this.plate2.update();
@@ -119,7 +120,7 @@ class Menu extends Phaser.Scene{
 
         //Adds plate 2
         this.plate2 = new Obstacle(this, width/2+250 + 200, height / 2, 'shrimp',0, 0.015);
-        this.plate2.angle = 1.5708;
+        this.plate2.angleInitial = 1.5708;
         this.physics.add.existing(this.plate2);
         //this.plate2.setCircle(62);
         this.plate2.body.allowGravity = false;
@@ -127,7 +128,7 @@ class Menu extends Phaser.Scene{
 
         //Adds plate 3
         this.plate3 = new Obstacle(this, width/2+250, height / 2 + 200, 'siumai',0, 0.015);
-        this.plate3.angle = 3.14159;
+        this.plate3.angleInitial = 3.14159;
         this.physics.add.existing(this.plate3);
         //this.plate3.setCircle(62);
         this.plate3.body.allowGravity = false;
@@ -135,7 +136,7 @@ class Menu extends Phaser.Scene{
 
         //Adds plate 4
         this.plate4 = new Obstacle(this, width/2+250 - 200, height / 2, 'stickyrice', 0, 0.015);
-        this.plate4.angle = 4.71239;
+        this.plate4.angleInitial = 4.71239;
         this.physics.add.existing(this.plate4);
         //this.plate4.setCircle(62);
         this.plate4.body.allowGravity = false;

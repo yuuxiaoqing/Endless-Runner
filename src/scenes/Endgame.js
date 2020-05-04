@@ -15,6 +15,12 @@ class Endgame extends Phaser.Scene{
         //background
         this.add.rectangle(0,0,width,height, 0xFFFFFF).setOrigin(0,0);
         this.add.sprite(0, 0, 'bg').setOrigin(0,0);
+        this.add.sprite(150, height/2 - 50, 'death').setScale(1.5).setOrigin(0.5);
+        this.add.sprite(800, height/2 - 50, 'menu').setScale(.25).setOrigin(0.5);
+        this.add.sprite(150, height/2 - 200, 'bao').setOrigin(0.5);
+        this.add.sprite(150, height/2 + 100, 'shrimp').setOrigin(0.5);
+        this.add.sprite(800, height/2 - 200, 'siumai').setOrigin(0.5);
+        this.add.sprite(800, height/2 + 100, 'stickyrice').setOrigin(0.5);
 
 
         //receipt
