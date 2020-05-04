@@ -6,10 +6,13 @@ class Play extends Phaser.Scene{
      
     //Preload
     preload(){
+        
     }
 
     //Create Function
     create(){
+        //background
+        this.add.rectangle(0,0, width, height, 0xFFFFFF).setOrigin(0,0);
         //Assigns the Keybinds
         playerLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         playerRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -17,7 +20,7 @@ class Play extends Phaser.Scene{
         playerAttack = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
         //Creates the player
-        mainPlayer = new PlayerObject(this, game.config.width/2, game.config.height/2, 'player').setOrigin(0.5);
+        mainPlayer = new PlayerObject(this, game.config.width/2, game.config.height/2).setOrigin(0.5);
         mainPlayer.setDepth(1);
         this.playerShadow = this.physics.add.sprite(mainPlayer.x, mainPlayer.y + 10, 'player');
         this.playerShadow.body.allowGravity = false;
@@ -47,8 +50,9 @@ class Play extends Phaser.Scene{
         //Creates the text font stuff
         let textConfig = {
             fontFamily: 'Yeon Sung',
-            fill:'#696969',
+            fill:'#000000',
             fontSize: '36px',
+            align: "center"
         } 
 
         //Adds a score timer variable
@@ -74,19 +78,33 @@ class Play extends Phaser.Scene{
 
        
         //Creates a score text variable
-        this.scoreTEXT = this.add.text(width/2, height/2 + 160, "Score", textConfig).setOrigin(0,0);
-        this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0,0);
+        this.scoreTEXT = this.add.text(width/2, height/2 + 220, "Score", textConfig).setOrigin(0.5);
+        this.scoreDisplay = this.add.text(width/2, height/2 + 200, score, textConfig).setOrigin(0.5);
+
+
+       // this.jump = this.add.sprite(100,150, 'playerSpriteSheet', 0);
+        let jump = {
+            key: 'jumpAnimation',
+            frames: this.anims.generateFrameNumbers('playerSpriteSheet', {start: 1,end: 2,first:0}),
+            frameRate:3,
+            repeat:-1
+        }
+
 
         this.smokeEffect1 = this.physics.add.sprite(width/2, height/2, 'smoke').setOrigin(0.5);
         this.smokeEffect1.body.allowGravity = false;
         this.smokeEffect1.setVelocityY(-800);
         this.smokeEffect1.setDepth(2);
 
-    //Plays the music
+        //Plays the music
         if(!gameMusic.isPlaying)
             gameMusic.play();
         if(menuMusic.isPlaying)
             menuMusic.stop();
+
+
+        this.anims.create(jump);
+        this.testAnimated = this.add.sprite(200,150,'playerSprite').play('jumpAnimation');
 
 
         //debug key
