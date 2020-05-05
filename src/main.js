@@ -25,6 +25,8 @@ Creative Tilt (Art):
     - i wanna eat it
     - this is niko writing this comment
     - delicious.
+    - Also we made the visual style related to food and it also rotates in a circle
+    - like a real dimsum table
 */
 
 //game settings
